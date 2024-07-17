@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Contacto</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark">
+    <!-- Logo -->
+    <h2 class="navbar-brand" href="#">
+      <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
+      <div class="textoPrinc">
+        Ausbessern
+        <br>
+        <p class="pe">Soporte Técnico ET 36</p>
+      </div>
+    </h2>
+
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Enlaces del menú -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Inicio</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Soporte Técnico <span class="caret"></span>
+          </a>
+          <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="arreglo.html">Arreglo</a>
+            <a class="dropdown-item" href="limpieza.html">Limpieza</a>
+            <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="nosotros.html">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link clicked" href="contacto.html">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.729681843982!2d-58.49621862488718!3d-34.56039905521065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb6f1e0dd6cd5%3A0x94580a794580f16c!2sGalv%C3%A1n%203700%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1719503377154!5m2!1ses-419!2sar"
+    width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="cuadrados">
+    <div class="contenido">
+      <div class="formInfo">
+        <h3 class="consulta">Envianos tu consulta</h3>
+        <form class="row g-3">
+          <div class="inputs">
+            <div class="col-12">
+              <label for="inputName" class="form-label"></label>
+              <input type="text" class="form-control" id="inputName" placeholder="Nombre" multiple required>
+            </div>
+            <div class="col-12">
+              <label for="inputEmail4" class="form-label"></label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Gmail / Hotmail" multiple required>
+            </div>
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label"></label>
+              <input type="tel" class="form-control" id="inputAddress2" placeholder="Teléfono" multiple required>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn2 btn-primary custom-button" id="">Enviar Información</button>
+          </div>
+      </div>
+      <div class="mensaje">
+        <input type="text" class="form-control" id="inputText" placeholder="Mensaje" multiple required>
+      </div>
+    </div>
+    </form>
+    <div class="infoIzq">
+      <h3 class="contactanos">Contáctanos</h3>
+      <h4 class="contacto">Por favor utilice el siguiente formulario para realizar consultas y o sugerencias. Le
+        responderemos a la brevedad.</h4>
+    </div>
+  </div>
+</body>
+<footer class="contactoFooter">
+  <div class="informacionFooter">
+    <img src="./img/envelope-solid.svg" class="foto" id="foto3" alt="Producto 2">
+    <h4><a href="https://mail.google.com/mail/u/0/#inbox" class="mail">tecnicoset36@gmail.com</a></h4>
+  </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.navbar-nav .nav-link').click(function () {
+      // Quita la clase 'clicked' de todos los enlaces
+      $('.navbar-nav .nav-link').removeClass('clicked');
+      // Agrega la clase 'clicked' solo al enlace clicado
+      $(this).addClass('clicked');
+    });
+  });
+</script>
+
+</html>

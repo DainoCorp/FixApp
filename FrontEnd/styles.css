@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+body{
+  background-color: #5e4969;
+}
+
+.btn-primary{
+  color:#46047200;
+}
+
+.navbar-toggler {
+  border-color: #fff;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 35px;
+}
+
+.navbar {
+  background-color: #37134e;
+}
+
+.navbar-brand{
+  font-size: 25px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.textoPrinc{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  font-family: "Roboto Slab", serif;
+}
+
+.pe{
+  font-size: 12px;
+  margin-left: 0px;
+  font-family: "Roboto Slab", serif;
+}
+
+.nav-item{
+  font-family: "Kanit", sans-serif;
+}
+
+#carouselExampleControls img {
+  margin-top: 2px;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.navbar-nav .nav-link {
+  transition: border-color 0.5s ease;
+}
+
+.navbar-nav .nav-link:hover{
+  border-bottom: 2.5px solid rgb(99, 0, 156);
+}
+
+.navbar-nav .nav-link.clicked{
+  border-bottom: 2.5px solid rgb(187, 141, 214);
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+  filter: brightness(30%);
+}
+
+.informacion{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title{
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  color: white;
+  font-family: "Chocolate Classical Sans", sans-serif;
+  margin-bottom: 12.5px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.informationText{
+  font-size: 15px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+}
+
+.info{
+  margin-bottom: 40px;
+  font-size: 35px;
+  font-family: "Poppins", sans-serif;
+}
+
+.custom-button {
+  border-radius: 30px; /* Bordes redondeados */
+  background-color: transparent; /* Fondo transparente */
+  color: white; /* Texto en color blanco */
+  border: 2px solid rgb(81, 135, 235); /* Borde de 2px sólido blanco */
+  padding: 7.5px 15px; /* Espaciado interno */
+  cursor: pointer; /* Cursor de apuntador */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 60px;
+}
+
+.custom-button {
+  border-radius: 30px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 7.5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 60px;
+}
+
+.cuadro{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
+.foto{
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.textoCuadro{
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.dropdown-item:hover{
+  background-color:rgb(63, 2, 99);
+  color: white;
+  transition: color 0.7s ease;
+  transition: background-color 0.7s ease;
+  border-radius: 5px;
+}
+
+@keyframes aparecer{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.cuadro img{
+  animation: aparecer 3s 1; 
+}
+
+.cuadro h2{
+  animation: aparecer 3s 1; 
+}
+
+@keyframes desplegarMenu{
+  from{
+    max-height: 0;
+    opacity: 0;
+  }
+  to{
+    max-height: 110px;
+    opacity: 1;
+  }
+}
+
+@keyframes cerrarMenu {
+  from {
+    max-height: 110px;
+    opacity: 1; 
+  }
+  to {
+    max-height: 0; 
+    opacity: 0; 
+  }
+}
+
+.dropdown-menu {
+  overflow: hidden; 
+  transition: max-height 0.5s ease, opacity 0.5s ease; 
+  animation: desplegarMenu 0.5s forwards; 
+  animation-duration: 0.8s;
+}
+
+.info{
+  overflow: hidden; 
+  transition: opacity 3s ease; 
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+.btn{
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+.custom-button {
+  position: relative; /* Asegura que los pseudo-elementos se posicionen correctamente */
+  overflow: hidden; /* Oculta cualquier contenido que sobresalga */
+  transition: color 1s ease;
+}
+
+.custom-button::after {
+  content: ''; /* Crea un pseudo-elemento vacío */
+  position: absolute; /* Lo posiciona de manera absoluta dentro del botón */
+  top: 0;
+  left: 0;
+  width: 0; /* Inicialmente tiene ancho cero */
+  height: 100%;
+  background-color: white; /* Color de fondo blanco */
+  z-index: -1; /* Asegura que esté detrás del texto del botón */
+  transition: width 1s ease; /* Transición para el ancho */
+}
+
+.custom-button:hover::after {
+  width: 100%; /* Aumenta el ancho al 100% cuando se pasa el mouse por encima */
+}
+
+.custom-button:hover {
+  color: black;
+}
+
+.container{
+  margin-top: 50px;
+}
+
+@media (max-width: 600px){
+  #carouselExampleControls img {
+    max-height: 200px;
+  }
+  .container{
+    margin-top: 20px;
+  }
+  .cuadro img{
+    margin-right: 20px;
+  }
+  .cuadro{
+    display: flex;
+    flex-direction: row;
+  }
+  #foto1{
+    margin-right: 27px;
+  }
+  #foto2{
+    margin-right: 40px;
+  }
+  #foto4{
+    margin-right: 33px;
+  }
+  #texto1{
+    margin-right: 6px;
+  }
+  #texto2{
+    margin-right: 25px;
+  }
+  #texto4{
+    margin-right: 7px;
+  }
+}
+
+.form-control{
+  width: 400px;
+  margin-left: 50px;
+  background-color: #5e4969;
+  font-size: 15px;
+  color: white;
+}
+
+@media (max-width: 600px){
+  iframe{
+    width: 100%;
+    height: 150px;
+  }
+  .form-control{
+    width: 250px;
+  }
+}
+
+.formInfo{
+  margin-top: 30px;
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+.consulta{
+  font-size: 25px;
+  margin-left: 50px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+.btn2{
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+  margin-left: 150px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.form-control:focus{
+  border-color: #8c00ff;
+}
+
+.cuadrados{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+}
+.contenido{
+  display: flex;
+  flex-direction: row;
+}
+.inputText{
+  margin-top: 50px;
+  width: 150px;
+}
+
+.contactanos{
+ font-size: 20px;
+}
+
+.contacto{
+  font-size: 15px;
+}
+
+.infoIzq{
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-bottom: 250px;
+  margin-right: 0px;
+  color: white;
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.mensaje{
+  margin-right: 0px;
+  margin-top: 92.5px;
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+.formInfo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+}
+
+.mensaje .form-control{
+  height: 160px;
+}
+
+.contactoFooter{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(62, 42, 78);
+}
+
+.informacionFooter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+}
+
+#foto3{
+  width: 50px;
+  height: 50px;
+}
+
+.mail{
+  color: rgb(0, 0, 0);
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.mail:hover{
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+@media (max-width:600px){
+  .mensaje{
+    margin-top: 10px;
+  }
+  .contactoFooter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  .btn2{
+    margin-left: 75px;
+  }
+
+  .formInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  .contenido{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+  }
+  footer{
+    width: 100%;
+  }
+  .consulta{
+    margin-right: 180px;
+  }
+}
+
+@keyframes movimiento{
+  from{
+    background-position: bottom left;
+  }
+  to{
+    background-position: top right;
+  }
+}
+
+.containerMovimiento{
+  width: 100%;
+  height: 400px;
+  animation: movimiento 15s;
+  background-image: url(./img/movimiento.jpg);
+  background-size: 200%;
+}
+.containerMovimiento::before{
+  animation: movimiento 15s reverse;
+}

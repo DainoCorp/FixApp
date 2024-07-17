@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Nosotros</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <!-- Logo -->
+            <h2 class="navbar-brand" href="#">
+                <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
+                <div class="textoPrinc">
+                    Ausbessern
+                    <br>
+                    <p class="pe">Soporte Técnico ET 36</p>
+                </div>
+            </h2>
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Enlaces del menú -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Soporte Técnico <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu lilaClarito clicked" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="arreglo.html">Arreglo</a>
+                            <a class="dropdown-item" href="limpieza.html">Limpieza</a>
+                            <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nosotros.html">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacto.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenido del mapa debajo de la barra de navegación -->
+        <div class="row">
+            <div class="col">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.729681843982!2d-58.49621862488718!3d-34.56039905521065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb6f1e0dd6cd5%3A0x94580a794580f16c!2sGalv%C3%A1n%203700%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1719502654820!5m2!1ses-419!2sar"
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.navbar-nav .nav-link').click(function () {
+                // Quita la clase 'clicked' de todos los enlaces
+                $('.navbar-nav .nav-link').removeClass('clicked');
+                // Agrega la clase 'clicked' solo al enlace clicado
+                $(this).addClass('clicked');
+            });
+        });
+    </script>
+</body>
+
+</html>
