@@ -1,16 +1,16 @@
-const express = require('express');
-const connection = require('./db');
+// server.js
+import express from 'express';
+import connection from './db.js';
 
 const app = express();
 
-app.get('/users', (req, res) => {
-  connection.query('SELECT * FROM users', (error, results) => {
-    if (error) {
-      res.status(500).send(error);
-    } else {
-      res.json(results);
-    }
-  });
+app.get('/users', async (req, res) => {
+  try {
+    const [results] = await connection.query('SELECT * FROM users');
+    res.json(results);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 app.listen(3000, () => {
