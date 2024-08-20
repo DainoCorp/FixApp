@@ -322,7 +322,7 @@ body{
 }
 
 .formInfo{
-  margin-top: 30px;
+  margin-top: 0px;
   overflow: hidden; 
   transition: opacity 3s ease;
   animation: aparecer 3s forwards; 
@@ -331,13 +331,26 @@ body{
 
 .consulta{
   font-size: 25px;
-  margin-left: 50px;
   color: white;
   font-family: "Montserrat", sans-serif;
   overflow: hidden; 
   transition: opacity 3s ease;
   animation: aparecer 3s forwards; 
   animation-duration: 3s;
+}
+
+@media (min-width:600px){
+  .consulta{
+    margin-left: 50px;
+  }
+
+  .infoIzq{
+    margin-bottom: 250px;
+  }
+  
+  .infoIzq .contactanos{
+    margin-top: 20px;
+  }
 }
 
 .btn2{
@@ -383,7 +396,6 @@ body{
 .infoIzq{
   margin-top: 10px;
   margin-left: 50px;
-  margin-bottom: 250px;
   margin-right: 0px;
   color: white;
   overflow: hidden; 
@@ -391,6 +403,7 @@ body{
   animation: aparecer 3s forwards; 
   animation-duration: 3s;
   font-family: "Poppins", sans-serif;
+  width: 200px;
 }
 
 .mensaje{
@@ -453,12 +466,14 @@ body{
   .mensaje{
     margin-top: 10px;
   }
+
   .contactoFooter{
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
   }
+
   .btn2{
     margin-left: 75px;
   }
@@ -468,38 +483,106 @@ body{
     justify-content: center;
     align-items: center;
     align-content: center;
+    width: 100%;
   }
+
   .contenido{
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
     margin-bottom: 50px;
     width: 100%;
   }
+
   footer{
     width: 100%;
   }
+
   .consulta{
-    margin-right: 180px;
+    margin-top: 10px;
+  }
+
+  .infoIzq{
+    margin-top: 20px;
+    height: 200px;
   }
 }
 
-@keyframes movimiento{
-  from{
-    background-position: bottom left;
+@keyframes movimiento {
+  0% {
+    background-position: bottom;
   }
-  to{
-    background-position: top right;
+  50% {
+    background-position: top;
+  }
+  100% {
+    background-position: bottom;
   }
 }
 
-.containerMovimiento{
+.containerMovimiento {
   width: 100%;
-  height: 400px;
-  animation: movimiento 15s;
+  height: 260px;
   background-image: url(./img/movimiento.jpg);
-  background-size: 200%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* O usa 'contain' para asegurar que la imagen sea completamente visible */
+  filter: brightness(30%);
+  animation: movimiento 20s infinite;
 }
-.containerMovimiento::before{
-  animation: movimiento 15s reverse;
+
+@media (max-width: 600px) {
+  .containerMovimiento {
+    height: 200px; /* Ajusta la altura si es necesario para pantallas pequeñas */
+    background-size: contain; /* Asegura que la imagen no se recorte en pantallas pequeñas */
+    background-position: center; /* Centra la imagen */
+  }
+}
+
+.titulo{
+  color: white;
+}
+
+.titulo:hover{
+  text-decoration: none;
+  color: white;
+}
+
+.textoNosotros{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+textarea{
+  resize: none;
+}
+
+.nextInfo img{
+  width: 300px;
+  height: 200px;
+  align-items: right;
+  display: flex;
+  justify-items: right;
+  align-content: right;
+  border: 1px solid white;
+}
+
+.nextInfo{
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: row;
+}
+
+.nextInfo h4{
+  color: black;
+  margin-left: 20px;
+  width: 400px;
+  margin-right: 100px;
+  display: flex;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
 }
