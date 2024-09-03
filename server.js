@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
@@ -24,28 +23,19 @@ connection.connect((err) => {
   console.log('Conexión a la base de datos establecida.');
 });
 
-// Configura Express para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+// Configura Express para servir archivos estáticos desde 'public/FrontEnd'
+app.use(express.static(path.join(__dirname, 'public', 'FrontEnd')));
 
 // Configura body-parser para manejar datos del formulario
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Ruta para servir la página de contacto
+// Ruta para servir la página de inicio (opcional, si no estás sirviendo directamente con express.static)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'contacto.html'));
-});
-
-// Ruta para manejar el formulario de contacto
-app.post('/contact', (req, res) => {
-  const { name, email, phone, message } = req.body;
-  const query = 'INSERT INTO contact_requests (name, email, phone, message) VALUES (?, ?, ?, ?)';
-
-  connection.query(query, [name, email, phone, message], (err, results) => {
+  res.sendFile(path.join(__dirname, 'FrontEnd', 'index.html'), (err) => {
     if (err) {
-      console.error('Error realizando la consulta:', err);
-      return res.status(500).send('Error al enviar la consulta.');
+      console.error('Error al enviar el archivo:', err);
+      res.status(err.status).end();
     }
-    res.send('Consulta enviada correctamente.');
   });
 });
 
