@@ -1,0 +1,6 @@
+para crear un ticket es necesario,
+ingresar:
+la descripcion del problema (la ingresa el usuario directamente)
+el nro de lab (lo ingresa el usuario directamente)
+y el tipo del equipo( lo ingresa el usuario)
+
