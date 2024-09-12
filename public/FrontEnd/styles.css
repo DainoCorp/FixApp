@@ -379,10 +379,13 @@ body{
   justify-items: center;
   width: 100%;
 }
+
 .contenido{
+  margin-top: 10%;
   display: flex;
   flex-direction: row;
 }
+
 .inputText{
   margin-top: 50px;
   width: 150px;
@@ -623,7 +626,7 @@ textarea{
 
 .button{
   height:80px;
-  background: linear-gradient(to left top, goldenrod 50%, goldenrod 50%);
+  background: linear-gradient(to left top, rgb(34, 1, 53) 80%, rgb(34, 1, 53) 20%);
   border-style: none;
   color:#fff;
   font-size: 20px;
@@ -913,4 +916,51 @@ textarea{
   transition: opacity 3s ease;
   animation: aparecer 3s forwards; 
   animation-duration: 3s;
+}
+
+#divBotones{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 70px;
+  gap: 150px;
+}
+
+#botonReset{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  width: 200px;
+  height: 50px;
+}
+
+#botonSubmit{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  width: 500px;
+}
+
+.contenido2{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 100px;
+}
+
+.btn3{
+  overflow: hidden; 
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards; 
+  animation-duration: 3s;
+  cursor: pointer;
 }

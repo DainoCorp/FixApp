@@ -38,8 +38,7 @@
             Soporte Técnico <span class="caret"></span>
           </a>
           <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item " href="arreglo.html">Arreglo</a>
-            <a class="dropdown-item" href="limpieza.html">Limpieza</a>
+            <a class="dropdown-item" href="arreglo.html">Arreglo y Limpieza</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
@@ -52,15 +51,93 @@
       </ul>
     </div>
   </nav>
+
+  <div class="cuadroArreglo">
+    <div class="contenido2">
+      <div class="formInfo">
+        <h3 class="consulta">Envíanos tu solicitud</h3>
+        <form class="row g-3" action="https://formsubmit.co/ignacio.dainoet36@gmail.com" method="POST">
+          <div class="inputs">
+            <div class="col-12">
+              <label for="inputServicio" class="form-label"></label>
+              <select type="text" class="form-control" id="inputServicio" required>
+                <option hidden selected>Tipos de Servicio</option>
+                <option value="Arreglos">Arreglos</option>
+                <option value="Limpieza">Limpieza</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="inputDispositivo" class="form-label"></label>
+              <select type="text" class="form-control" id="inputDispositivo" required>
+                <option hidden selected>Tipo de Dispositivo</option>
+                <option value="Computadora">Computadora</option>
+                <option value="Monitor">Monitor</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="inputLab" class="form-label"></label>
+              <input type="text" class="form-control" id="inputLab" name="inputLab"
+                placeholder="Número de Laboratorio (Por ejemplo: LAB4-CP07)" required>
+            </div>
+            <div class="col-12">
+              <label for="inputProblem" class="form-label"></label>
+              <input type="text" class="form-control" id="inputProblem" name="problem"
+                placeholder="Descripción del Problema" required>
+            </div>
+          </div>
+          <div class="col-12" id="divBotones">
+            <button type="submit" class="btn3 btn-primary custom-button" id="botonSubmit">Enviar Información</button>
+            <button type="reset" class="btn3 btn-primary custom-button" id="botonReset" value="reset">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
-        // Quita la clase 'clicked' de todos los enlaces
         $('.navbar-nav .nav-link').removeClass('clicked');
-        // Agrega la clase 'clicked' solo al enlace clicado
+        $(this).addClass('clicked');
+      });
+
+      $('#inputServicio').on('change', function () {
+        var selectedService = $(this).val();
+        var dispositivoSelect = $('#inputDispositivo');
+        var labInput = $('#inputLab');
+
+        if (selectedService === 'Limpieza') {
+          dispositivoSelect.find('option[value="Monitor"]').hide();
+          dispositivoSelect.val('Computadora');
+          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        } else {
+          dispositivoSelect.find('option[value="Monitor"]').show();
+          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        }
+      });
+
+      $('#inputDispositivo').on('change', function () {
+        var selectedDevice = $(this).val();
+        var labInput = $('#inputLab');
+
+        if (selectedDevice === 'Computadora') {
+          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        } else if (selectedDevice === 'Monitor') {
+          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-PA02)');
+        }
+      });
+    });
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.navbar-nav .nav-link').click(function () {
+        $('.navbar-nav .nav-link').removeClass('clicked');
         $(this).addClass('clicked');
       });
     });
