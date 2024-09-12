@@ -23,6 +23,11 @@ connection.connect((err) => {
   console.log('Conexión a la base de datos establecida.');
 });
 
+
+//Si se manejan datos de otras rutas.
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // Configura Express para servir archivos estáticos desde 'public/FrontEnd'
 app.use(express.static(path.join(__dirname, 'public', 'FrontEnd')));
 
@@ -35,6 +40,24 @@ app.get('/', (req, res) => {
     if (err) {
       console.error('Error al enviar el archivo:', err);
       res.status(err.status).end();
+    }
+  });
+});
+// Obtiene los valores del apratado de contacto.html
+app.post("/contacto", function(req, res){
+  const datos = req.body;
+
+  let nombres = datos.name;
+  let emails = datos.email;
+  let tel = datos.phone;
+  let msg = datos.message;
+
+  let registrar = "INSERT INTO contacto (name, email, phone, message) VALUES ('"+nombres+"', '"+emails+"', '"+tel+"', '"+msg+"')"
+  connection.query(registrar, function(error){
+    if(error){
+      throw error;
+    }else{
+      console.log("Datos almacenados directamente");
     }
   });
 });
