@@ -47,12 +47,12 @@ app.get('/', (req, res) => {
 app.post("/contacto", function(req, res){
   const datos = req.body;
 
-  let nombres = datos.name;
+  let nombres = datos.nombre;
   let emails = datos.email;
   let tel = datos.phone;
   let msg = datos.message;
 
-  let registrar = "INSERT INTO contacto (name, email, phone, message) VALUES ('"+nombres+"', '"+emails+"', '"+tel+"', '"+msg+"')"
+  let registrar = "INSERT INTO contacto (nombre, email, phone, message) VALUES ('"+nombres+"', '"+emails+"', '"+tel+"', '"+msg+"')"
   connection.query(registrar, function(error){
     if(error){
       throw error;
@@ -62,6 +62,11 @@ app.post("/contacto", function(req, res){
   });
 });
 
+app.post("/arreglo", function(req, res){
+  const datos = req.body;
+
+  
+})
 // Inicia el servidor
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);

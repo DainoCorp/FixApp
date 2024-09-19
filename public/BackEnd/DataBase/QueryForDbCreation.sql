@@ -76,3 +76,14 @@ CONSTRAINT fk_historial_tickets_estados_tickets
         FOREIGN KEY (estado_historial_ticket)
         REFERENCES estados_tickets(id)
 );
+
+create table contacto(
+	id integer primary key auto_increment,
+	nombre varchar(22),
+    email varchar(30),
+    phone varchar(20),
+    message varchar(300)
+
+
+);
+select * from contacto;
