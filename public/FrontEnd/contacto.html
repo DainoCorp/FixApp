@@ -12,7 +12,6 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <!-- Logo -->
     <h2 class="navbar-brand" href="#">
       <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
       <div class="textoPrinc">
@@ -22,12 +21,10 @@
       </div>
     </h2>
 
-    <!-- Botón hamburguesa -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Enlaces del menú -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -39,7 +36,7 @@
             Soporte Técnico <span class="caret"></span>
           </a>
           <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="arreglo.html">Arreglo y Limpieza</a>
+            <a class="dropdown-item" href="arreglo.html">Servicios</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
@@ -60,10 +57,6 @@
     <div class="contenido">
       <div class="formInfo">
         <h3 class="consulta">Envíanos tu consulta</h3>
-        <!--
-        Sirve para mandar a un mail particular
-        https://formsubmit.co/ignacio.dainoet36@gmail.com
-        -->
         <form class="row g-3" action="/contacto" method="POST">
           <div class="inputs">
             <div class="col-12">
@@ -113,9 +106,7 @@
   <script>
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
-        // Quita la clase 'clicked' de todos los enlaces
         $('.navbar-nav .nav-link').removeClass('clicked');
-        // Agrega la clase 'clicked' solo al enlace clicado
         $(this).addClass('clicked');
       });
     });

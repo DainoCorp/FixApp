@@ -12,7 +12,6 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <!-- Logo -->
     <h2 class="navbar-brand" href="#">
       <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
       <div class="textoPrinc">
@@ -21,12 +20,10 @@
         <p class="pe">Soporte Técnico ET 36</p>
       </div>
     </h2>
-    <!-- Botón hamburguesa -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Enlaces del menú -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -38,7 +35,7 @@
             Soporte Técnico <span class="caret"></span>
           </a>
           <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="arreglo.html">Arreglo y Limpieza</a>
+            <a class="dropdown-item" href="arreglo.html">Servicios</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
@@ -103,7 +100,8 @@
         $('.navbar-nav .nav-link').removeClass('clicked');
         $(this).addClass('clicked');
       });
-
+  </script>
+  <script>
       $('#inputServicio').on('change', function () {
         var selectedService = $(this).val();
         var dispositivoSelect = $('#inputDispositivo');
@@ -131,9 +129,6 @@
       });
     });
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
