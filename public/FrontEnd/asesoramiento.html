@@ -12,7 +12,6 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <!-- Logo -->
     <h2 class="navbar-brand" href="#">
       <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
       <div class="textoPrinc">
@@ -21,12 +20,10 @@
         <p class="pe">Soporte Técnico ET 36</p>
       </div>
     </h2>
-    <!-- Botón hamburguesa -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Enlaces del menú -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -38,7 +35,7 @@
             Soporte Técnico <span class="caret"></span>
           </a>
           <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="arreglo.html">Arreglo y Limpieza</a>
+            <a class="dropdown-item" href="arreglo.html">Servicios</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
@@ -55,20 +52,21 @@
   <div class="containerFoto">
     <div class="divIzq">
       <div class="TextoAsesoramiento">
-        <h1 class="textoAsesoramiento2">Resolvemos tus problemas técnicos de la forma más veloz y eficiente, para asesoramiento personal contáctanos.</h1>
+        <h1 class="textoAsesoramiento2">Resolvemos tus problemas técnicos de la forma más veloz y eficiente, para
+          asesoramiento personal contáctanos.</h1>
       </div>
 
       <div class="wrapper">
         <a href="contacto.html">
-        <button class="button">
-          Contacto
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+          <button class="button">
+            Contacto
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
       </div>
-    </a>
+      </a>
     </div>
 
     <img src="./img/hombre.png">
@@ -80,9 +78,7 @@
   <script>
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
-        // Quita la clase 'clicked' de todos los enlaces
         $('.navbar-nav .nav-link').removeClass('clicked');
-        // Agrega la clase 'clicked' solo al enlace clicado
         $(this).addClass('clicked');
       });
     });

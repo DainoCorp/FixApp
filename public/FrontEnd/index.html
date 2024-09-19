@@ -11,7 +11,6 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark">
-    <!-- Logo -->
     <h2 class="navbar-brand" href="#">
       <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
       <div class="textoPrinc">
@@ -21,12 +20,10 @@
       </div>
     </h2>
 
-    <!-- Botón hamburguesa -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Enlaces del menú -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -38,7 +35,7 @@
             Soporte Técnico <span class="caret"></span>
           </a>
           <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="arreglo.html">Arreglo y Limpieza</a>
+            <a class="dropdown-item" href="arreglo.html">Servicios</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
@@ -55,7 +52,7 @@
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./img/imgFondo.png"  class="d-block w-100 img-fluid" alt="Nosotros">
+        <img src="./img/imgFondo.png" class="d-block w-100 img-fluid" alt="Nosotros">
         <div class="carousel-caption d-none d-md-block">
         </div>
       </div>
@@ -74,7 +71,6 @@
         </div>
       </div>
     </div>
-    <!-- Controles del carousel -->
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Anterior</span>
@@ -125,9 +121,7 @@
   <script>
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
-        // Quita la clase 'clicked' de todos los enlaces
         $('.navbar-nav .nav-link').removeClass('clicked');
-        // Agrega la clase 'clicked' solo al enlace clicado
         $(this).addClass('clicked');
       });
     });

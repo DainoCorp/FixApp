@@ -16,13 +16,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-body{
+body {
   background-color: #5e4969;
-  
+
 }
 
-.btn-primary{
-  color:#46047200;
+.btn-primary {
+  color: #46047200;
 }
 
 .navbar-toggler {
@@ -37,7 +37,7 @@ body{
   background-color: #37134e;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-size: 25px;
   display: flex;
   flex-direction: row;
@@ -45,7 +45,7 @@ body{
   margin-bottom: 0px;
 }
 
-.textoPrinc{
+.textoPrinc {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,13 +54,13 @@ body{
   font-family: "Roboto Slab", serif;
 }
 
-.pe{
+.pe {
   font-size: 12px;
   margin-left: 0px;
   font-family: "Roboto Slab", serif;
 }
 
-.nav-item{
+.nav-item {
   font-family: "Kanit", sans-serif;
 }
 
@@ -75,11 +75,11 @@ body{
   transition: border-color 0.5s ease;
 }
 
-.navbar-nav .nav-link:hover{
+.navbar-nav .nav-link:hover {
   border-bottom: 2.5px solid rgb(99, 0, 156);
 }
 
-.navbar-nav .nav-link.clicked{
+.navbar-nav .nav-link.clicked {
   border-bottom: 2.5px solid rgb(187, 141, 214);
 }
 
@@ -89,7 +89,7 @@ body{
   filter: brightness(30%);
 }
 
-.informacion{
+.informacion {
   margin-top: 30px;
   display: flex;
   justify-content: center;
@@ -97,7 +97,7 @@ body{
   flex-direction: column;
 }
 
-.title{
+.title {
   font-size: 25px;
   display: flex;
   align-items: center;
@@ -109,7 +109,7 @@ body{
   border-bottom: 1px solid #ffffff;
 }
 
-.informationText{
+.informationText {
   font-size: 15px;
   color: white;
   font-family: "Poppins", sans-serif;
@@ -118,20 +118,27 @@ body{
   text-align: center;
 }
 
-.info{
+.info {
   margin-bottom: 40px;
   font-size: 35px;
   font-family: "Poppins", sans-serif;
 }
 
 .custom-button {
-  border-radius: 30px; /* Bordes redondeados */
-  background-color: transparent; /* Fondo transparente */
-  color: white; /* Texto en color blanco */
-  border: 2px solid rgb(81, 135, 235); /* Borde de 2px sólido blanco */
-  padding: 7.5px 15px; /* Espaciado interno */
-  cursor: pointer; /* Cursor de apuntador */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  border-radius: 30px;
+  /* Bordes redondeados */
+  background-color: transparent;
+  /* Fondo transparente */
+  color: white;
+  /* Texto en color blanco */
+  border: 2px solid rgb(81, 135, 235);
+  /* Borde de 2px sólido blanco */
+  padding: 7.5px 15px;
+  /* Espaciado interno */
+  cursor: pointer;
+  /* Cursor de apuntador */
+  transition: background-color 0.3s, color 0.3s;
+  /* Transición suave */
   font-family: "Poppins", sans-serif;
   margin-bottom: 60px;
 }
@@ -143,12 +150,13 @@ body{
   border: 2px solid white;
   padding: 7.5px 15px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  transition: background-color 0.3s, color 0.3s;
+  /* Transición suave */
   font-family: "Poppins", sans-serif;
   margin-bottom: 60px;
 }
 
-.cuadro{
+.cuadro {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -157,13 +165,13 @@ body{
   width: 100%;
 }
 
-.foto{
+.foto {
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
 }
 
-.textoCuadro{
+.textoCuadro {
   font-size: 15px;
   display: flex;
   flex-direction: column;
@@ -174,37 +182,39 @@ body{
   font-family: "Montserrat", sans-serif;
 }
 
-.dropdown-item:hover{
-  background-color:rgb(63, 2, 99);
+.dropdown-item:hover {
+  background-color: rgb(63, 2, 99);
   color: white;
   transition: color 0.7s ease;
   transition: background-color 0.7s ease;
   border-radius: 5px;
 }
 
-@keyframes aparecer{
-  from{
+@keyframes aparecer {
+  from {
     opacity: 0;
   }
-  to{
+
+  to {
     opacity: 1;
   }
 }
 
-.cuadro img{
-  animation: aparecer 3s 1; 
+.cuadro img {
+  animation: aparecer 3s 1;
 }
 
-.cuadro h2{
-  animation: aparecer 3s 1; 
+.cuadro h2 {
+  animation: aparecer 3s 1;
 }
 
-@keyframes desplegarMenu{
-  from{
+@keyframes desplegarMenu {
+  from {
     max-height: 0;
     opacity: 0;
   }
-  to{
+
+  to {
     max-height: 110px;
     opacity: 1;
   }
@@ -213,100 +223,119 @@ body{
 @keyframes cerrarMenu {
   from {
     max-height: 110px;
-    opacity: 1; 
+    opacity: 1;
   }
+
   to {
-    max-height: 0; 
-    opacity: 0; 
+    max-height: 0;
+    opacity: 0;
   }
 }
 
 .dropdown-menu {
-  overflow: hidden; 
-  transition: max-height 0.5s ease, opacity 0.5s ease; 
-  animation: desplegarMenu 0.5s forwards; 
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  animation: desplegarMenu 0.5s forwards;
   animation-duration: 0.8s;
 }
 
-.info{
-  overflow: hidden; 
-  transition: opacity 3s ease; 
-  animation: aparecer 3s forwards; 
+.info {
+  overflow: hidden;
+  transition: opacity 3s ease;
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-.btn{
-  overflow: hidden; 
+.btn {
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
 .custom-button {
-  position: relative; /* Asegura que los pseudo-elementos se posicionen correctamente */
-  overflow: hidden; /* Oculta cualquier contenido que sobresalga */
+  position: relative;
+  /* Asegura que los pseudo-elementos se posicionen correctamente */
+  overflow: hidden;
+  /* Oculta cualquier contenido que sobresalga */
   transition: color 1s ease;
 }
 
 .custom-button::after {
-  content: ''; /* Crea un pseudo-elemento vacío */
-  position: absolute; /* Lo posiciona de manera absoluta dentro del botón */
+  content: '';
+  /* Crea un pseudo-elemento vacío */
+  position: absolute;
+  /* Lo posiciona de manera absoluta dentro del botón */
   top: 0;
   left: 0;
-  width: 0; /* Inicialmente tiene ancho cero */
+  width: 0;
+  /* Inicialmente tiene ancho cero */
   height: 100%;
-  background-color: white; /* Color de fondo blanco */
-  z-index: -1; /* Asegura que esté detrás del texto del botón */
-  transition: width 1s ease; /* Transición para el ancho */
+  background-color: white;
+  /* Color de fondo blanco */
+  z-index: -1;
+  /* Asegura que esté detrás del texto del botón */
+  transition: width 1s ease;
+  /* Transición para el ancho */
 }
 
 .custom-button:hover::after {
-  width: 100%; /* Aumenta el ancho al 100% cuando se pasa el mouse por encima */
+  width: 100%;
+  /* Aumenta el ancho al 100% cuando se pasa el mouse por encima */
 }
 
 .custom-button:hover {
   color: black;
 }
 
-.container{
+.container {
   margin-top: 50px;
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
   #carouselExampleControls img {
     max-height: 200px;
   }
-  .container{
+
+  .container {
     margin-top: 20px;
   }
-  .cuadro img{
+
+  .cuadro img {
     margin-right: 20px;
   }
-  .cuadro{
+
+  .cuadro {
     display: flex;
     flex-direction: row;
   }
-  #foto1{
+
+  #foto1 {
     margin-right: 27px;
   }
-  #foto2{
+
+  #foto2 {
     margin-right: 40px;
   }
-  #foto4{
+
+  #foto4 {
     margin-right: 33px;
   }
-  #texto1{
+
+  #texto1 {
     margin-right: 6px;
   }
-  #texto2{
+
+  #texto2 {
     margin-right: 25px;
   }
-  #texto4{
+
+  #texto4 {
     margin-right: 7px;
   }
 }
 
-.form-control{
+.form-control {
   width: 400px;
   margin-left: 50px;
   background-color: #5e4969;
@@ -314,63 +343,64 @@ body{
   color: white;
 }
 
-@media (max-width: 600px){
-  iframe{
+@media (max-width: 600px) {
+  iframe {
     width: 100%;
     height: 150px;
   }
-  .form-control{
+
+  .form-control {
     width: 250px;
   }
 }
 
-.formInfo{
+.formInfo {
   margin-top: 0px;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-.consulta{
+.consulta {
   font-size: 25px;
   color: white;
   font-family: "Montserrat", sans-serif;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-@media (min-width:600px){
-  .consulta{
+@media (min-width:600px) {
+  .consulta {
     margin-left: 50px;
   }
 
-  .infoIzq{
+  .infoIzq {
     margin-bottom: 250px;
   }
-  
-  .infoIzq .contactanos{
+
+  .infoIzq .contactanos {
     margin-top: 20px;
   }
 }
 
-.btn2{
-  overflow: hidden; 
+.btn2 {
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
   margin-left: 150px;
   margin-top: 30px;
   cursor: pointer;
 }
 
-.form-control:focus{
+.form-control:focus {
   border-color: #8c00ff;
 }
 
-.cuadrados{
+.cuadrados {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -380,111 +410,111 @@ body{
   width: 100%;
 }
 
-.contenido{
-  margin-top: 10%;
+.contenido {
+  margin-top: 0.2%;
   display: flex;
   flex-direction: row;
 }
 
-.inputText{
+.inputText {
   margin-top: 50px;
   width: 150px;
 }
 
-.contactanos{
- font-size: 20px;
+.contactanos {
+  font-size: 20px;
 }
 
-.contacto{
+.contacto {
   font-size: 15px;
 }
 
-.infoIzq{
+.infoIzq {
   margin-top: 10px;
   margin-left: 50px;
   margin-right: 0px;
   color: white;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
   font-family: "Poppins", sans-serif;
   width: 200px;
 }
 
-.mensaje{
+.mensaje {
   margin-right: 0px;
   margin-top: 92.5px;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-.formInfo{
+.formInfo {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 500px;
 }
 
-.mensaje .form-control{
+.mensaje .form-control {
   height: 160px;
 }
 
-.contactoFooter{
+.contactoFooter {
   width: 100%;
   height: 100px;
   background-color: rgb(62, 42, 78);
 }
 
-.informacionFooter{
+.informacionFooter {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
   height: 100%;
   flex-direction: column;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-#foto3{
+#foto3 {
   width: 50px;
   height: 50px;
 }
 
-.mail{
+.mail {
   color: rgb(255, 238, 0);
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
   font-size: 20px;
 }
 
-.mail:hover{
+.mail:hover {
   text-decoration: none;
   transition: color 0.5s ease;
 }
 
-@media (max-width:600px){
-  .mensaje{
+@media (max-width:600px) {
+  .mensaje {
     margin-top: 10px;
   }
 
-  .contactoFooter{
+  .contactoFooter {
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
   }
 
-  .btn2{
+  .btn2 {
     margin-left: 75px;
   }
 
-  .formInfo{
+  .formInfo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -492,22 +522,22 @@ body{
     width: 100%;
   }
 
-  .contenido{
+  .contenido {
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
     width: 100%;
   }
 
-  footer{
+  footer {
     width: 100%;
   }
 
-  .consulta{
+  .consulta {
     margin-top: 10px;
   }
 
-  .infoIzq{
+  .infoIzq {
     margin-top: 20px;
     height: 200px;
   }
@@ -517,9 +547,11 @@ body{
   0% {
     background-position: bottom;
   }
+
   50% {
     background-position: top;
   }
+
   100% {
     background-position: bottom;
   }
@@ -538,22 +570,22 @@ body{
 
 @media (max-width: 600px) {
   .containerMovimiento {
-    height: 200px; 
+    height: 200px;
     background-size: contain;
-    background-position: center; 
+    background-position: center;
   }
 }
 
-.titulo{
+.titulo {
   color: white;
 }
 
-.titulo:hover{
+.titulo:hover {
   text-decoration: none;
   color: white;
 }
 
-.textoNosotros{
+.textoNosotros {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -561,11 +593,11 @@ body{
   font-family: "Poppins", sans-serif;
 }
 
-textarea{
+textarea {
   resize: none;
 }
 
-.nextInfo img{
+.nextInfo img {
   margin-top: 0px;
   width: 440px;
   height: 400px;
@@ -575,7 +607,7 @@ textarea{
   align-content: right;
 }
 
-.nextInfo{
+.nextInfo {
   margin-top: 100px;
   justify-content: center;
   display: flex;
@@ -588,11 +620,11 @@ textarea{
 
 }
 
-.divTexto{
+.divTexto {
   width: 500px;
 }
 
-.nextInfo h4{
+.nextInfo h4 {
   color: black;
   margin-left: 20px;
   width: 400px;
@@ -603,7 +635,7 @@ textarea{
   align-items: center;
 }
 
-.textoNosotros{
+.textoNosotros {
   margin-top: 100px;
   margin-bottom: 100px;
   display: flex;
@@ -614,7 +646,7 @@ textarea{
   text-align: center;
 }
 
-.textoNosotros h4{
+.textoNosotros h4 {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -624,11 +656,11 @@ textarea{
   width: 50%;
 }
 
-.button{
-  height:80px;
+.button {
+  height: 80px;
   background: linear-gradient(to left top, rgb(34, 1, 53) 80%, rgb(34, 1, 53) 20%);
   border-style: none;
-  color:#fff;
+  color: #fff;
   font-size: 20px;
   letter-spacing: 3px;
   font-family: "Kanit", sans-serif;
@@ -639,112 +671,117 @@ textarea{
   padding: 0px;
   overflow: hidden;
   transition: all .3s;
-  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, .2);
   width: 170px;
   margin-top: 20px;
 }
 
-.button span{
+.button span {
   position: absolute;
   display: block;
 }
 
-.button span:nth-child(1){
+.button span:nth-child(1) {
   height: 3px;
-  width:200px;
-  top:0px;
-  left:-200px;
-  background: linear-gradient(to right, rgba(0,0,0,0), #f6e58d);
+  width: 200px;
+  top: 0px;
+  left: -200px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #f6e58d);
   border-top-right-radius: 1px;
   border-bottom-right-radius: 1px;
   animation: span1 2s linear infinite;
   animation-delay: 1s;
 }
 
-@keyframes span1{
-  0%{
-      left:-200px
+@keyframes span1 {
+  0% {
+    left: -200px
   }
-  100%{
-      left:200px;
+
+  100% {
+    left: 200px;
   }
 }
-.button span:nth-child(2){
+
+.button span:nth-child(2) {
   height: 70px;
   width: 3px;
-  top:-70px;
-  right:0px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), #f6e58d);
+  top: -70px;
+  right: 0px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #f6e58d);
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
   animation: span2 2s linear infinite;
   animation-delay: 2s;
 }
 
-@keyframes span2{
-  0%{
-      top:-70px;
+@keyframes span2 {
+  0% {
+    top: -70px;
   }
-  100%{
-      top:70px;
+
+  100% {
+    top: 70px;
   }
 }
 
-.button span:nth-child(3){
-  height:3px;
-  width:200px;
-  right:-200px;
+.button span:nth-child(3) {
+  height: 3px;
+  width: 200px;
+  right: -200px;
   bottom: 0px;
-  background: linear-gradient(to left, rgba(0,0,0,0), #f6e58d);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0), #f6e58d);
   border-top-left-radius: 1px;
   border-bottom-left-radius: 1px;
   animation: span3 2s linear infinite;
   animation-delay: 3s;
 }
 
-@keyframes span3{
-  0%{
-      right:-200px;
+@keyframes span3 {
+  0% {
+    right: -200px;
   }
-  100%{
-      right: 200px;
+
+  100% {
+    right: 200px;
   }
 }
 
-.button span:nth-child(4){
-  height:70px;
-  width:3px;
-  bottom:-70px;
-  left:0px;
-  background: linear-gradient(to top, rgba(0,0,0,0), #f6e58d);
+.button span:nth-child(4) {
+  height: 70px;
+  width: 3px;
+  bottom: -70px;
+  left: 0px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0), #f6e58d);
   border-top-right-radius: 1px;
   border-top-left-radius: 1px;
   animation: span4 2s linear infinite;
   animation-delay: 4s;
 }
 
-@keyframes span4{
-  0%{
-      bottom: -70px;
+@keyframes span4 {
+  0% {
+    bottom: -70px;
   }
-  100%{
-      bottom:70px;
+
+  100% {
+    bottom: 70px;
   }
 }
 
-.button:hover{
+.button:hover {
   transition: all .5s;
   transform: rotate(-1deg) scale(1.05);
-  box-shadow: 0px 3px 5px rgba(0,0,0,.4);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, .4);
 }
 
-.textoAsesoramiento2{
+.textoAsesoramiento2 {
   color: white;
   text-align: center;
   font-size: 40px;
 }
 
-.textoAsesoramiento{
+.textoAsesoramiento {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -754,7 +791,7 @@ textarea{
   color: white;
 }
 
-.divIzq{
+.divIzq {
   font-family: "Kanit", sans-serif;
   display: flex;
   justify-content: center;
@@ -768,16 +805,16 @@ textarea{
   margin-left: 50px;
 }
 
-.wrapper{
+.wrapper {
   margin-top: 80px;
 }
 
-.containerFoto{
+.containerFoto {
   display: flex;
   flex-direction: row;
 }
 
-.containerFoto img{
+.containerFoto img {
   display: flex;
   margin-top: 180px;
 }
@@ -786,7 +823,7 @@ textarea{
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-.estadisticas{
+.estadisticas {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -797,37 +834,41 @@ textarea{
   margin-top: 50px;
 }
 
-.texto1, .texto2, .texto3{
-  overflow: hidden; 
+.texto1,
+.texto2,
+.texto3 {
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
   animation: coresDancantes 5s linear infinite;
 }
 
-.division1, .division2, .division3{
+.division1,
+.division2,
+.division3 {
   color: white;
   margin-bottom: 50px;
 }
 
-.division1{
+.division1 {
   margin-left: 60px;
 }
 
-.division2{
+.division2 {
   margin-left: 10px;
 }
 
-.division3{
+.division3 {
   margin-left: 50px;
 }
 
 .rainbow-text {
   font-size: 3em;
   font-weight: bold;
-  background: linear-gradient(90deg, 
-      #ff0000, #ff7f00, #ffff00, #7fff00, #00ff00, 
-      #00ff7f, #00ffff, #007fff, #0000ff, #7f00ff, 
+  background: linear-gradient(90deg,
+      #ff0000, #ff7f00, #ffff00, #7fff00, #00ff00,
+      #00ff7f, #00ffff, #007fff, #0000ff, #7f00ff,
       #ff00ff, #ff007f, #ff0000, #ff007f, #ff00ff, #7f00ff, #0000ff, #007fff, #00ffff, #00ff7f, #00ff00, #7fff00, #ffff00, #ff7f00);
   background-size: 300% 300%;
   -webkit-background-clip: text;
@@ -836,15 +877,20 @@ textarea{
 }
 
 @keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
-.imagenHombre{
+.imagenHombre {
   margin-bottom: 100px;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards;  
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
@@ -855,9 +901,9 @@ textarea{
   overflow: hidden;
   background-color: transparent;
   margin-bottom: 15px;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
@@ -880,24 +926,25 @@ textarea{
 
 @keyframes scroll {
   0% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
+
   100% {
-      -webkit-transform: translateX(calc(-200px * 7));
-      transform: translateX(calc(-200px * 7));
+    -webkit-transform: translateX(calc(-200px * 7));
+    transform: translateX(calc(-200px * 7));
   }
 }
 
-.textoAlumno{
+.textoAlumno {
   margin-top: 100px;
-  overflow: hidden; 
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-.contenidorgb{
+.contenidorgb {
   background: linear-gradient(to right, var(--cores-dancantes));
   border-radius: 10px;
   position: relative;
@@ -905,20 +952,20 @@ textarea{
   animation: coresDancantes 2s linear infinite;
 }
 
-@keyframes coresDancantes{
-  100%{
-      filter: hue-rotate(360deg);
+@keyframes coresDancantes {
+  100% {
+    filter: hue-rotate(360deg);
   }
 }
 
-.containerFoto{
-  overflow: hidden; 
+.containerFoto {
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
 }
 
-#divBotones{
+#divBotones {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -929,7 +976,7 @@ textarea{
   gap: 150px;
 }
 
-#botonReset{
+#botonReset {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -939,7 +986,7 @@ textarea{
   height: 50px;
 }
 
-#botonSubmit{
+#botonSubmit {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -948,7 +995,7 @@ textarea{
   width: 500px;
 }
 
-.contenido2{
+.contenido2 {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -957,10 +1004,10 @@ textarea{
   margin-top: 100px;
 }
 
-.btn3{
-  overflow: hidden; 
+.btn3 {
+  overflow: hidden;
   transition: opacity 3s ease;
-  animation: aparecer 3s forwards; 
+  animation: aparecer 3s forwards;
   animation-duration: 3s;
   cursor: pointer;
 }
