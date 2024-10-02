@@ -150,3 +150,13 @@ Se hace una consulta a la base de datos y si no resulta exitosa se enviara un me
   });
 });
 
+## Endpoint /contacto
+Este endpoint maneja solicitudes POST en la ruta /contacto. Al recibir una solicitud, extrae datos del cuerpo (req.body), que incluyen nombre, email, phone y message. Luego, construye una consulta SQL para insertar estos datos en la tabla contacto de la base de datos.
+
+La consulta se ejecuta mediante connection.query(). Si ocurre un error, se lanza una excepción; de lo contrario, se imprime un mensaje en la consola indicando que los datos han sido almacenados. Sin embargo, no se envía una respuesta al cliente, lo que podría generar confusión.
+
+### Mejoras Sugeridas
+Para mejorar la seguridad, se recomienda usar consultas parametrizadas en lugar de concatenar cadenas, lo que ayuda a prevenir inyecciones SQL. Además, es crucial manejar la respuesta al cliente, enviando un mensaje que indique si la operación fue exitosa o si hubo un error.
+
+### Endpoint /arreglo
+Este endpoint también maneja solicitudes POST, pero el código está incompleto en el fragmento proporcionado. Solo se extrae el cuerpo de la solicitud (req.body), y falta la lógica para procesar los datos.
