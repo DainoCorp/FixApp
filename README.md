@@ -40,29 +40,30 @@ Esta sección está destinada a facilitar la comunicación directa con el person
 Bootstrap ofrece diversas ventajas para el desarrollo rápido y prototipado de interfaces de usuario. Con su conjunto de componentes prediseñados y estilos CSS, es posible construir interfaces atractivas y funcionales de manera eficiente, ideal para proyectos con restricciones de tiempo. 
 Además, su enfoque "mobile-first" garantiza que las aplicaciones sean responsivas desde dispositivos móviles hasta escritorios, asegurando una experiencia consistente. Bootstrap también facilita mantener una apariencia visual uniforme mediante estilos predefinidos y componentes estructurados, mejorando la coherencia estética y la experiencia del usuario. Con un soporte activo y una comunidad robusta, ofrece recursos extensos de documentación y ejemplos para resolver problemas y personalizar proyectos según las necesidades específicas, combinando la facilidad de uso con la flexibilidad de la personalización.
 
-Importancia para la integridad y estilización de la página
+### Importancia para la integridad y estilización de la página
 ●	Integridad estructural: Bootstrap proporciona una estructura coherente y bien definida para el desarrollo front-end, lo que facilita la organización y mantenimiento del código. Esto es esencial para proyectos grandes o equipos donde múltiples desarrolladores trabajan en el mismo código base.
 
 ●	Estilización coherente: Al usar Bootstrap, te aseguras de que los elementos de tu página estén estilizados de manera uniforme, siguiendo las mejores prácticas de diseño web. Esto no solo mejora la apariencia visual, sino que también contribuye a una experiencia de usuario más agradable y profesional.
 Justificación de la Integración de Node.js en el Proyecto FixApp
 A diferencia de los entornos de ejecución tradicionales de JavaScript que funcionan en el navegador, Node.js permite ejecutar código JavaScript en el servidor. Esto posibilita el desarrollo de aplicaciones del lado del servidor con JavaScript, un lenguaje que tradicionalmente se ha utilizado principalmente en el desarrollo del lado del cliente.
 
-Node.js ofrece varias ventajas fundamentales que lo hacen ideal para el desarrollo de aplicaciones modernas:
+### Node.js ofrece varias ventajas fundamentales que lo hacen ideal para el desarrollo de aplicaciones modernas:
+
 Node.js está diseñado con un enfoque en la asincronía y el no bloqueo, permitiendo manejar múltiples solicitudes simultáneamente sin bloquear el hilo principal. Esto optimiza el rendimiento y la escalabilidad, especialmente en aplicaciones web en tiempo real y de alta concurrencia.
 El uso de JavaScript tanto en el frontend como en el backend simplifica el desarrollo al permitir a los desarrolladores trabajar con un único lenguaje en toda la pila de la aplicación. Esto facilita la colaboración entre equipos y elimina la necesidad de aprender un nuevo lenguaje para el desarrollo del lado del servidor.
 Node.js cuenta con npm (Node Package Manager), uno de los ecosistemas de paquetes más extensos del mundo. Con acceso a una amplia variedad de librerías y módulos, facilita la implementación de funcionalidades complejas y acelera el desarrollo de aplicaciones.
 Gracias al motor V8 de Google, Node.js ejecuta código JavaScript a alta velocidad, optimizando la eficiencia del servidor. Su naturaleza no bloqueante asegura una utilización eficiente de los recursos del sistema.
 Node.js cuenta con una comunidad activa y en expansión, lo cual garantiza un amplio soporte a través de documentación, foros de discusión y contribuciones de código abierto, asegurando que los desarrolladores siempre encuentren ayuda y recursos para mejorar sus proyectos.
 
-Explicación del código de conexión a la base de datos:
+## Explicación del código de conexión a la base de datos:
 
-Instalar dependencias:
+### Instalar dependencias:
 
 ●	mysql2: Permite que Node.js hable con MySQL.
 ●	dotenv: Mantiene las contraseñas y configuraciones fuera del código en un archivo .env.
 ●	Configurar variables de entorno:
 
-Crea un archivo .env en tu proyecto.
+### Crea un archivo .env en tu proyecto.
 
 Dentro del archivo .env, define:
 
@@ -71,7 +72,7 @@ Dentro del archivo .env, define:
 ●	DB_PASSWORD: Contraseña de la base de datos.
 ●	DB_DATABASE: Nombre de la base de datos.
 
-Crear el archivo de conexión a la base de datos:
+### Crear el archivo de conexión a la base de datos:
 
 Crea un archivo db.js.
 
@@ -101,7 +102,7 @@ const bodyParser = require('body-parser'):
 
 •	La biblioteca body-parser es un middleware para aplicaciones Express en Node.js que se utiliza para analizar y procesar los cuerpos de las solicitudes HTTP.
 
-Documentacion del Codigo del archivo server.js:
+## Documentacion del Codigo del archivo server.js:
 
 const connection = mysql.createConnection({
   host: 'localhost',
