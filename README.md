@@ -1,4 +1,4 @@
-##Introducción 
+# Introducción 
 
 Somos un equipo de estudiantes del Colegio Secundario “Alte. Brown” y hemos decidido emprender un proyecto que tiene como objetivo la creación de una página web dedicada a la asistencia en reparaciones y reconstrucciones de computadoras. Este servicio está dirigido tanto al colegio como al alumnado y a los profesores.
 Nuestra iniciativa surge del deseo de aplicar y compartir los conocimientos adquiridos durante nuestra formación, ofreciendo una contribución significativa a nuestra comunidad educativa. A través de esta plataforma, buscamos facilitar el mantenimiento y la mejora de los equipos informáticos, esenciales para el proceso de enseñanza y aprendizaje.
