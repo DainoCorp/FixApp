@@ -160,3 +160,81 @@ Para mejorar la seguridad, se recomienda usar consultas parametrizadas en lugar 
 
 ### Endpoint /arreglo
 Este endpoint también maneja solicitudes POST, pero el código está incompleto en el fragmento proporcionado. Solo se extrae el cuerpo de la solicitud (req.body), y falta la lógica para procesar los datos.
+
+## Tablas de la Base de Datos app fix
+
+### cod_equipo
+Descripción: Almacena información sobre los equipos.
+##### Columnas:
+id: Identificador único del equipo (clave primaria).
+nro_lab: Número del laboratorio asociado.
+nro_equipo: Número del equipo.
+id_tipo_equipo: Referencia al tipo de equipo (clave foránea para tipo_equipo).
+
+### contacto
+Descripción: Guarda información de contacto de los usuarios.
+##### Columnas:
+id: Identificador único del contacto (clave primaria).
+nombre: Nombre del contacto.
+email: Dirección de email del contacto.
+phone: Número de teléfono.
+message: Mensaje o comentario del contacto.
+
+### estados_tickets
+Descripción: Contiene los estados posibles para los tickets.
+##### Columnas:
+id: Identificador único del estado (clave primaria).
+estado: Descripción del estado del ticket.
+
+### historial_tickets
+Descripción: Registra el historial de acciones realizadas en los tickets.
+##### Columnas:
+id: Identificador único del historial (clave primaria).
+id_tecnico: Referencia al técnico responsable (clave foránea para users).
+id_ticket: Referencia al ticket (clave foránea para tickets).
+fecha: Fecha y hora de la acción.
+mensaje: Mensaje asociado a la acción.
+estado_historial_ticket: Referencia al estado del ticket (clave foránea para estados_tickets).
+
+### rol
+Descripción: Almacena los tipos de roles o funciones de los usuarios.
+##### Columnas:
+id: Identificador único del rol (clave primaria).
+tipo: Descripción del tipo de rol.
+
+### tickets
+Descripción: Contiene información sobre los tickets abiertos.
+##### Columnas:
+id: Identificador único del ticket (clave primaria).
+fecha_emision: Fecha y hora de emisión del ticket.
+descripcion_problema: Descripción del problema reportado.
+codigo_equipo: Referencia al código del equipo (clave foránea para cod_equipo).
+id_tipo_servicio: Referencia al tipo de servicio (clave foránea para tipo_servicio)
+.
+### tipo_equipo
+Descripción: Clasifica los diferentes tipos de equipos.
+##### Columnas:
+id: Identificador único del tipo (clave primaria).
+tipo: Descripción del tipo de equipo.
+
+### tipo_servicio
+Descripción: Define los tipos de servicios disponibles.
+##### Columnas:
+idtipo_servicio: Identificador único del tipo de servicio (clave primaria).
+tipo_servicio: Descripción del tipo de servicio.
+
+### users
+Descripción: Almacena información sobre los usuarios del sistema.
+##### Columnas:
+id: Identificador único del usuario (clave primaria).
+nombre: Nombre del usuario.
+apellido: Apellido del usuario.
+dni: Documento de identidad.
+email: Dirección de email del usuario.
+telefono: Número de teléfono del usuario.
+contraseña: Contraseña del usuario.
+rol_id: Referencia al rol del usuario (clave foránea para rol).
+
+### Justificación de la tecnología:
+Decidimos utilizar Sql debido a que consideramos que nuestra información sería más manejable si se encontraba estructurada, además , necesitábamos tener la capacidad de relacionar mucha información de manera sencilla.
+Otra de las razones de nuestra elección es el gran soporte y comunidad que tiene MySql, siendo que esta es la base de datos más grande y usada del mundo.
