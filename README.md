@@ -326,3 +326,6 @@ rol_id: Referencia al rol del usuario (clave foránea para rol).
 ### Justificación de la tecnología:
 Decidimos utilizar Sql debido a que consideramos que nuestra información sería más manejable si se encontraba estructurada, además , necesitábamos tener la capacidad de relacionar mucha información de manera sencilla.
 Otra de las razones de nuestra elección es el gran soporte y comunidad que tiene MySql, siendo que esta es la base de datos más grande y usada del mundo.
+
+### Diagrama de la base de datos
+[![Db-Diagram.png](https://i.postimg.cc/VNTX5bWx/Db-Diagram.png)](https://postimg.cc/kVQ2pGZs)
