@@ -64,7 +64,7 @@ app.post("/contacto", function(req, res){
 
 app.post("/arreglo", function(req, res){
   const datos = req.body;
-
+  
   
 })
 // Inicia el servidor
