@@ -1,4 +1,8 @@
-# Introducción
+# FIXAPP
+
+[![image.png](https://i.postimg.cc/qqgRKmBQ/image.png)](https://postimg.cc/H8DdD9y7)}
+
+## Introducción
 
 Somos un equipo de estudiantes del Colegio Secundario “Alte. Brown” y hemos
 decidido emprender un proyecto que tiene como objetivo la creación de una página
