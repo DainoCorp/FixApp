@@ -1,28 +1,116 @@
-# Introducción 
-Somos un equipo de estudiantes del Colegio Secundario “Alte. Brown” y hemos decidido emprender un proyecto que tiene como objetivo la creación de una página web dedicada a la asistencia en reparaciones y reconstrucciones de computadoras. Este servicio está dirigido tanto al colegio como al alumnado y a los profesores.
-Nuestra iniciativa surge del deseo de aplicar y compartir los conocimientos adquiridos durante nuestra formación, ofreciendo una contribución significativa a nuestra comunidad educativa. A través de esta plataforma, buscamos facilitar el mantenimiento y la mejora de los equipos informáticos, esenciales para el proceso de enseñanza y aprendizaje.
-Nuestro compromiso es proporcionar estos servicios de manera completamente gratuita, como una forma de retribuir y agradecer la educación que hemos recibido. Creemos firmemente en el poder de la colaboración y el apoyo mutuo, y estamos entusiasmados por la oportunidad de ayudar a mejorar las condiciones tecnológicas del colegio.
-Esperamos que este esfuerzo conjunto beneficie a todos los miembros de nuestra escuela y ayude con un entorno de aprendizaje más eficiente y accesible.
+# Introducción
+
+Somos un equipo de estudiantes del Colegio Secundario “Alte. Brown” y hemos
+decidido emprender un proyecto que tiene como objetivo la creación de una página
+web dedicada a la asistencia en reparaciones y reconstrucciones de computadoras. Este
+servicio está dirigido tanto al colegio como al alumnado y a los profesores.
+Nuestra iniciativa surge del deseo de aplicar y compartir los conocimientos
+adquiridos durante nuestra formación, ofreciendo una contribución significativa a
+nuestra comunidad educativa. A través de esta plataforma, buscamos facilitar el
+mantenimiento y la mejora de los equipos informáticos, esenciales para el proceso de
+enseñanza y aprendizaje.
+Nuestro compromiso es proporcionar estos servicios de manera completamente
+gratuita, como una forma de retribuir y agradecer la educación que hemos recibido.
+Creemos firmemente en el poder de la colaboración y el apoyo mutuo, y estamos
+entusiasmados por la oportunidad de ayudar a mejorar las condiciones tecnológicas del
+colegio.
+Esperamos que este esfuerzo conjunto beneficie a todos los miembros de
+nuestra escuela y ayude con un entorno de aprendizaje más eficiente y accesible.
 
 ## Situación Problemática
-En el contexto actual, nos enfrentamos a un desafío significativo relacionado con la operatividad de las computadoras (PC) en nuestro colegio. 
-Observamos que existe un número considerable de equipos que, a pesar de su importancia para las actividades educativas, 
-presentan problemas técnicos y no están funcionando correctamente.
+En el contexto actual, nos enfrentamos a un desafío significativo
+relacionado con la operatividad de las computadoras (PC) en nuestro colegio.
+Observamos que existe un número considerable de equipos que, a pesar de su
+importancia para las actividades educativas, presentan problemas técnicos y no están
+funcionando correctamente.
 
 ## Objetivo
 
-Nuestro principal objetivo es garantizar el funcionamiento correcto y sostenible de las computadoras, asegurando su pleno uso y mantenimiento a lo largo del tiempo en el colegio. Reconocemos la importancia de una infraestructura tecnológica confiable y eficiente para apoyar las actividades educativas.
-Nos guiamos por la estrategia de establecer objetivos alcanzables, enfocándonos en metas a corto plazo que sean fácilmente alcanzables. Esta metodología no solo promueve un progreso continuo, sino que también motiva y alienta a todos los miembros del equipo involucrados en el proyecto.
-Los objetivos específicos se detallarán de manera concreta en la documentación correspondiente.
+Nuestro principal objetivo es garantizar el funcionamiento correcto y sostenible de las
+computadoras, asegurando su pleno uso y mantenimiento a lo largo del tiempo en el
+colegio. Reconocemos la importancia de una infraestructura tecnológica confiable y
+eficiente para apoyar las actividades educativas.
+Nos guiamos por la estrategia de establecer objetivos alcanzables, enfocándonos en
+metas a corto plazo que sean fácilmente alcanzables. Esta metodología no solo
+promueve un progreso continuo, sino que también motiva y alienta a todos los
+miembros del equipo involucrados en el proyecto.
+Los objetivos específicos se detallarán de manera concreta en la documentación
+correspondiente.
+Documentación del código frontend:
 
-# Documentación del código frontend:
+###Arreglo.html
 
-### Arreglo.html
-Hemos implementado una opción especializada en nuestro sistema de soporte técnico que permite a nuestros técnicos seleccionar y gestionar las computadoras disponibles en el taller para su reparación. Esta funcionalidad está diseñada para optimizar el proceso de diagnóstico y reparación, debido a que cada tecnico puede variar su eleccion segun la cantidad de conocimiento que tenga, asegurando que cada equipo reciba la atención necesaria de manera eficiente.
+Hemos implementado una opción especializada en nuestro sistema de soporte
+técnico que permite a nuestros técnicos seleccionar y gestionar las computadoras
+disponibles en el taller para su reparación. Esta funcionalidad está diseñada para
+optimizar el proceso de diagnóstico y reparación, debido a que cada tecnico puede
+variar su eleccion segun la cantidad de conocimiento que tenga, asegurando que cada
+equipo reciba la atención necesaria de manera eficiente.
 
-### Asesoramiento.html
-Se utilizaría para garantizar una atención óptima y resolver cualquier inquietud que pueda surgir, hemos implementado un sistema de comunicación directa respecto a dudas,sugerencias e inquietudes. Este canal está diseñado para que usted pueda expresar sus dudas de manera clara y efectiva, permitiéndonos ofrecerle un diagnóstico preciso y oportuno.
-Nuestro equipo de servicio técnico está a su disposición para proporcionarle la información y asistencia necesarias, asegurando así que todas sus consultas sean atendidas de forma profesional y eficiente.
+Codigo: Encabezado (head):
+
+Aquí se incluyen las configuraciones y enlaces a recursos externos, como hojas de estilo
+(Bootstrap para diseño responsivo y styles.css para estilos personalizados) y se establece
+el título de la página como &quot;Nosotros&quot;.
+
+meta charset=&quot;UTF-8&quot;: Define la codificación de caracteres.
+meta name=&quot;viewport&quot;: Hace que el sitio sea responsivo en diferentes dispositivos.
+Cuerpo (body): El cuerpo de la página está compuesto por varias partes:
+
+#### 1. Barra de navegación (navbar):
+Logo: Incluye un ícono de una llave y el texto &quot;Ausbessern&quot; seguido de &quot;Soporte Técnico
+ET 36&quot;.
+
+Menú de navegación: Contiene enlaces a otras páginas como &quot;Inicio&quot;, &quot;Servicios&quot;,
+&quot;Asesoramiento&quot;, &quot;Nosotros&quot; y &quot;Contacto&quot;.
+Hay un menú desplegable (dropdown) para la sección &quot;Soporte Técnico&quot;, que tiene
+enlaces a &quot;Servicios&quot; y &quot;Asesoramiento&quot;.
+Botón para colapsar el menú: En dispositivos pequeños, la barra de navegación se
+colapsa para ahorrar espacio, y se expande al hacer clic en el ícono.
+
+#### 2. Formulario de solicitud de servicio:
+Esta es la sección central de la página donde los usuarios pueden enviar una solicitud de
+servicio técnico.
+
+Formulario: El formulario contiene varios campos importantes:
+
+Tipo de servicio: Un menú desplegable que permite seleccionar el tipo de servicio, ya
+sea &quot;Arreglos&quot; o &quot;Limpieza&quot;.
+
+Tipo de dispositivo: Otro menú desplegable para seleccionar el dispositivo afectado, ya
+sea &quot;Computadora&quot; o &quot;Monitor&quot;.
+
+Número de laboratorio: Un campo de texto donde el usuario ingresa el número de
+laboratorio asociado al dispositivo (p. ej., LAB4-CP07).
+
+Descripción del problema: Un campo de texto para que el usuario describa el problema
+con el dispositivo.
+
+Botones:
+Enviar información: Envía los datos del formulario para procesarlos.
+Resetear: Restablece todos los campos del formulario.
+
+### Asesoramiento.html:
+.Explicación General:
+El código HTML representa una página web de la sección &quot;Nosotros&quot; del proyecto
+Ausbessern, que proporciona soporte técnico para dispositivos de un colegio,
+principalmente computadoras y monitores. El objetivo de la página es mostrar
+información sobre el servicio, facilitar el acceso a otras secciones del sitio y permitir a
+los usuarios contactar con el equipo de soporte técnico.
+
+El diseño de la página está construido con Bootstrap, una herramienta que facilita la
+creación de sitios web responsivos y adaptables a distintos dispositivos. Además, se
+emplea JavaScript y jQuery para mejorar la interactividad de la página.
+
+#### .Explicación Detallada:
+
+-Encabezado:
+El encabezado incluye las configuraciones clave de la página, como la codificación de
+caracteres y la adaptabilidad para dispositivos móviles, lo que garantiza que el sitio sea
+responsivo y se vea correctamente en cualquier pantalla.
+Se enlazan archivos externos, como el de Bootstrap para el diseño responsivo y un
+archivo CSS personalizado para estilos específicos de la página.
+El título de la pestaña del navegador se define como &quot;Nosotros&quot;.
 
 ### Limpieza.html
 Esta sección está diseñada específicamente para facilitar la solicitud de servicios de limpieza. Aquí encontrará toda la información necesaria para coordinar y gestionar sus necesidades de limpieza de manera eficiente.
