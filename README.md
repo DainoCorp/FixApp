@@ -38,7 +38,7 @@ Los objetivos específicos se detallarán de manera concreta en la documentació
 correspondiente.
 Documentación del código frontend:
 
-###Arreglo.html
+### Arreglo.html
 
 Hemos implementado una opción especializada en nuestro sistema de soporte
 técnico que permite a nuestros técnicos seleccionar y gestionar las computadoras
