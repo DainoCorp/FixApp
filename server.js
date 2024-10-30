@@ -108,7 +108,7 @@ app.post("/arreglo", (req, res) => {
             return res.status(500).send('Error en la base de datos');
           }
 
-          res.send('Datos almacenados correctamente');
+          res.redirect('/arreglo.html');
         });
       });
     }

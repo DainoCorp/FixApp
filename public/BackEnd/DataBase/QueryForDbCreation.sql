@@ -36,7 +36,7 @@ CREATE TABLE users (
 
 create table cod_equipo(
 id integer primary key auto_increment,
-nro_lab integer,
+nro_lab varchar(50), 
   id_tipo_equipo INTEGER ,
   CONSTRAINT fk_cod_equipo_tipo_equipo
         FOREIGN KEY (id_tipo_equipo)
@@ -86,4 +86,6 @@ create table contacto(
 
 
 );
-select * from contacto;
+select * from tickets;
+select * from tipo_equipo;
+SELECT * FROM  cod_equipo;
