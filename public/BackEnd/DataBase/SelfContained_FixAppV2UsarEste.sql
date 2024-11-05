@@ -24,12 +24,11 @@ DROP TABLE IF EXISTS `cod_equipo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cod_equipo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nro_lab` int(11) DEFAULT NULL,
-  `nro_equipo` int(11) NOT NULL,
-  `id_tipo_equipo` int(11) DEFAULT NULL,
+  `id_lab` int(11) DEFAULT NULL,
+  `descripcion_equipo` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_cod_equipo_tipo_equipo` (`id_tipo_equipo`),
-  CONSTRAINT `fk_cod_equipo_tipo_equipo` FOREIGN KEY (`id_tipo_equipo`) REFERENCES `tipo_equipo` (`id`)
+  KEY `cod_equipo-laboratorio_idx` (`id_lab`),
+  CONSTRAINT `cod_equipo-laboratorio` FOREIGN KEY (`id_lab`) REFERENCES `laboratorio` (`idlaboratorio`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -125,26 +124,27 @@ LOCK TABLES `historial_tickets` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `rol`
+-- Table structure for table `laboratorio`
 --
 
-DROP TABLE IF EXISTS `rol`;
+DROP TABLE IF EXISTS `laboratorio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rol` (
-  `id` int(11) NOT NULL,
-  `tipo` varchar(22) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `laboratorio` (
+  `idlaboratorio` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreLab` varchar(45) NOT NULL,
+  PRIMARY KEY (`idlaboratorio`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `rol`
+-- Dumping data for table `laboratorio`
 --
 
-LOCK TABLES `rol` WRITE;
-/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+LOCK TABLES `laboratorio` WRITE;
+/*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
+INSERT INTO `laboratorio` VALUES (1,'LAB 6 COMPUTACION');
+/*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -178,29 +178,6 @@ LOCK TABLES `tickets` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tipo_equipo`
---
-
-DROP TABLE IF EXISTS `tipo_equipo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipo_equipo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(22) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_equipo`
---
-
-LOCK TABLES `tipo_equipo` WRITE;
-/*!40000 ALTER TABLE `tipo_equipo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tipo_equipo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipo_servicio`
 --
 
@@ -224,35 +201,8 @@ LOCK TABLES `tipo_servicio` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Dumping events for database 'appfix'
 --
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(22) DEFAULT NULL,
-  `apellido` varchar(22) DEFAULT NULL,
-  `dni` int(11) DEFAULT NULL,
-  `email` varchar(22) DEFAULT NULL,
-  `telefono` varchar(22) DEFAULT NULL,
-  `contraseña` varchar(22) DEFAULT NULL,
-  `rol_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_users_rol` (`rol_id`),
-  CONSTRAINT `fk_users_rol` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'appfix'
@@ -267,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-03 11:22:24
+-- Dump completed on 2024-11-05 11:46:00
