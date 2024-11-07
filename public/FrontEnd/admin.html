@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Laboratorio</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Agregar Nuevo Laboratorio</h2>
+    <form id="addLabForm">
+      <div class="form-group">
+        <label for="labName">Nombre del Laboratorio</label>
+        <input type="text" class="form-control" id="labName" placeholder="Ejemplo: LAB1" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar Laboratorio</button>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Manejar la solicitud de agregar un laboratorio
+      $('#addLabForm').submit(function (e) {
+        e.preventDefault();
+
+        var labName = $('#labName').val();
+        if (!labName) {
+          alert('Por favor ingrese un nombre de laboratorio');
+          return;
+        }
+
+        // Enviar la solicitud para agregar el laboratorio
+        $.ajax({
+          url: '/add-lab',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ nombreLab: labName }),
+          success: function (response) {
+            alert('Laboratorio agregado correctamente');
+            $('#labName').val('');  // Limpiar el campo de entrada
+          },
+          error: function (err) {
+            alert('Hubo un error al agregar el laboratorio');
+            console.error(err);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
