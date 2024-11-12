@@ -57,7 +57,7 @@
           <div class="inputs">
             <div class="col-12">
               <label for="inputServicio" class="form-label"></label>
-              <select type="text" class="form-control" id="inputServicio"name="tipoServicio" required>
+              <select type="text" class="form-control" id="inputServicio" name="tipoServicio" required>
                 <option hidden selected>Tipos de Servicio</option>
                 <option value="Arreglos">Arreglos</option>
                 <option value="Limpieza">Limpieza</option>
@@ -65,13 +65,13 @@
             </div>
             <div class="col-12">
               <label for="inputDispositivo" class="form-label"></label>
-              <select type="text" class="form-control" id="inputDispositivo" name="laboratorio" required>
-                <option hidden selected>Laboratorio</option>
+              <select class="form-control" id="existingLabs" name="laboratorio" required>
+                <option value="" hidden>Selecciona un laboratorio</option>
               </select>
             </div>
             <div class="col-12">
               <label for="inputLab" class="form-label"></label>
-              <input type="text" class="form-control" id="inputLab" name="pantalla"
+              <input type="text" class="form-control" id="inputLab" name="tipo_equipo"
                 placeholder="Número de Pantalla (Por ejemplo: PA17)" required>
             </div>
             <div class="col-12">
@@ -88,7 +88,91 @@
       </div>
     </div>
   </div>
+
+  <!-- Incluimos los scripts al final para que se carguen correctamente -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Llenar la lista de laboratorios existentes al cargar la página
+      $.ajax({
+        url: '/labs',  // Endpoint que devuelve los laboratorios
+        type: 'GET',
+        success: function (data) {
+          // Verificamos que `data` sea un array y que contenga los nombres de los laboratorios
+          if (Array.isArray(data)) {
+            data.forEach(function (lab) {
+              if (lab.nombreLab) {
+                $('#existingLabs').append(`<option value="${lab.nombreLab}">${lab.nombreLab}</option>`);
+              }
+            });
+          } else {
+            console.error('Los datos de laboratorios no están en el formato esperado.');
+          }
+        },
+        error: function (err) {
+          alert('Hubo un error al obtener los laboratorios');
+          console.error(err);
+        }
+      });
+
+      // Llenar el select de tipo de servicio
+      $.ajax({
+        url: '/tipo-servicio',  // Endpoint que devuelve los tipos de servicio
+        type: 'GET',
+        success: function (data) {
+          // Verificamos que `data` sea un array y que contenga los nombres de los tipos de servicio
+          if (Array.isArray(data)) {
+            data.forEach(function (tipo) {
+              if (tipo.tipo_servicio) {
+                $('#tipoServicio').append(`<option value="${tipo.tipo_servicio}">${tipo.tipo_servicio}</option>`);
+              }
+            });
+          } else {
+            console.error('Los datos de tipos de servicio no están en el formato esperado.');
+          }
+        },
+        error: function (err) {
+          alert('Hubo un error al obtener los tipos de servicio');
+          console.error(err);
+        }
+      });
+
+      // Manejar la solicitud de agregar un nuevo arreglo
+      $('#arregloForm').submit(function (e) {
+        e.preventDefault();
+
+        var laboratorio = $('#existingLabs').val();
+        var tipoServicio = $('#tipoServicio').val();
+        var descripcionProblema = $('#descripcionProblema').val();
+
+        if (!laboratorio || !tipoServicio || !descripcionProblema) {
+          alert('Por favor complete todos los campos');
+          return;
+        }
+
+        // Enviar los datos al servidor
+        $.ajax({
+          url: '/arreglo',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            laboratorio: laboratorio,
+            tipoServicio: tipoServicio,
+            descripcionProblema: descripcionProblema
+          }),
+          success: function (response) {
+            alert('Formulario enviado con éxito');
+          },
+          error: function (err) {
+            alert('Hubo un error al enviar el formulario');
+            console.error(err);
+          }
+        });
+      });
+    });
+  </script>
   <script>
     // Función para obtener los laboratorios y cargarlos en el select
     function loadLabs() {
@@ -96,7 +180,7 @@
         var labSelect = $('#inputDispositivo');
         labSelect.empty();  // Limpiar el select antes de agregar las nuevas opciones
         labSelect.append('<option hidden selected>Laboratorio</option>');  // Agregar la opción predeterminada
-        
+
         // Añadir cada laboratorio como opción
         labs.forEach(function (lab) {
           labSelect.append('<option value="' + lab.id_lab + '">' + lab.nombreLab + '</option>');
@@ -113,51 +197,33 @@
         loadLabs();  // Vuelve a cargar la lista de laboratorios
       });
     });
-  </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('.navbar-nav .nav-link').click(function () {
-        $('.navbar-nav .nav-link').removeClass('clicked');
-        $(this).addClass('clicked');
-      });
-  </script>
-  <script>
-      $('#inputServicio').on('change', function () {
-        var selectedService = $(this).val();
-        var dispositivoSelect = $('#inputDispositivo');
-        var labInput = $('#inputLab');
 
-        if (selectedService === 'Limpieza') {
-          dispositivoSelect.find('option[value="Monitor"]').hide();
-          dispositivoSelect.val('Computadora');
-          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
-        } else {
-          dispositivoSelect.find('option[value="Monitor"]').show();
-          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
-        }
-      });
+    // Función para cambiar los valores según el tipo de servicio
+    $('#inputServicio').on('change', function () {
+      var selectedService = $(this).val();
+      var dispositivoSelect = $('#inputDispositivo');
+      var labInput = $('#inputLab');
 
-      $('#inputDispositivo').on('change', function () {
-        var selectedDevice = $(this).val();
-        var labInput = $('#inputLab');
-
-        if (selectedDevice === 'Computadora') {
-          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
-        } else if (selectedDevice === 'Monitor') {
-          labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-PA02)');
-        }
-      });
+      if (selectedService === 'Limpieza') {
+        dispositivoSelect.find('option[value="LAB6"]').hide();  // Aquí cambiamos para ocultar una opción si es Limpieza
+        dispositivoSelect.val('LAB6');
+        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+      } else {
+        dispositivoSelect.find('option[value="LAB6"]').show();  // Mostrar la opción de LAB6 si no es Limpieza
+        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+      }
     });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $('.navbar-nav .nav-link').click(function () {
-        $('.navbar-nav .nav-link').removeClass('clicked');
-        $(this).addClass('clicked');
-      });
+
+    // Al cambiar la opción de laboratorio, cambiamos el placeholder de inputLab
+    $('#inputDispositivo').on('change', function () {
+      var selectedDevice = $(this).val();
+      var labInput = $('#inputLab');
+
+      if (selectedDevice === 'LAB6') {
+        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB6-CP01)');
+      } else {
+        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+      }
     });
   </script>
 </body>

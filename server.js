@@ -43,79 +43,83 @@ app.get('/', (req, res) => {
   });
 });
 
-// Ruta para manejar el formulario de contacto
-app.post("/contacto", function(req, res){
-  const datos = req.body;
-  let nombres = datos.nombre;
-  let emails = datos.email;
-  let tel = datos.phone;
-  let msg = datos.message;
-
-  let registrar = "INSERT INTO contacto (nombre, email, phone, message) VALUES (?, ?, ?, ?)";
-  connection.query(registrar, [nombres, emails, tel, msg], function(error){
-    if(error){
-      console.error('Error al registrar contacto:', error);
-      res.status(500).send('Hubo un error al registrar los datos');
-    } else {
-      console.log("Datos almacenados correctamente");
-      res.status(200).send('Datos almacenados correctamente');
+// Ruta para manejar el formulario de arreglo
+app.post("/arreglo", (req, res) => {
+  const { tipoServicio, laboratorio, descripcionProblema } = req.body;
+  
+  console.log('Valor recibido de laboratorio:', laboratorio);  // Depuración
+  console.log('Tipo de servicio recibido:', tipoServicio);  // Depuración
+  
+  // 1. Verificar y obtener el ID del laboratorio
+  connection.query('SELECT * FROM laboratorio WHERE nombreLab = ?', [laboratorio], (error, results) => {
+    if (error) {
+      console.error('Error al buscar el laboratorio:', error);
+      return res.status(500).send('Error al buscar laboratorio');
     }
+
+    if (results.length === 0) {
+      console.error('Laboratorio no encontrado');
+      return res.status(400).send('Laboratorio no encontrado');
+    }
+
+    const laboratorioId = results[0].idlaboratorio;  // Usamos 'idlaboratorio' para obtener el ID del laboratorio
+    console.log('ID del laboratorio:', laboratorioId);  // Depuración
+
+    // 2. Asegurarnos de que el tipo de servicio existe, sino lo insertamos
+    connection.query('SELECT idtipo_servicio FROM tipo_servicio WHERE tipo_servicio = ?', [tipoServicio.trim().toLowerCase()], (tipoServicioError, tipoServicioResults) => {
+      if (tipoServicioError) {
+        console.error('Error al buscar tipo de servicio:', tipoServicioError);
+        return res.status(500).send('Error al obtener tipos de servicio');
+      }
+
+      let tipoServicioId;
+
+      // Si no se encuentra el tipo de servicio, lo insertamos
+      if (tipoServicioResults.length === 0) {
+        console.log('Tipo de servicio no encontrado, insertando...');
+        connection.query('INSERT INTO tipo_servicio (tipo_servicio) VALUES (?)', [tipoServicio], (insertTipoServicioError, insertTipoServicioResults) => {
+          if (insertTipoServicioError) {
+            console.error('Error al insertar tipo de servicio:', insertTipoServicioError);
+            return res.status(500).send('Error al insertar tipo de servicio');
+          }
+
+          tipoServicioId = insertTipoServicioResults.insertId;
+          // 3. Crear el ticket con el tipo de servicio insertado
+          insertTicket(res, laboratorioId, descripcionProblema, tipoServicioId);
+        });
+      } else {
+        tipoServicioId = tipoServicioResults[0].idtipo_servicio;
+        // 3. Crear el ticket con el tipo de servicio encontrado
+        insertTicket(res, laboratorioId, descripcionProblema, tipoServicioId);
+      }
+    });
   });
 });
 
-// Ruta para agregar un arreglo
-app.post("/arreglo", (req, res) => {
-  const { tipoServicio, dispositivo, nro_lab, descripcionProblema } = req.body;
-
-  // 1. Verificar y obtener el ID del tipo de dispositivo
-  connection.query('SELECT id FROM tipo_equipo WHERE tipo = ?', [dispositivo], (error, results) => {
-    if (error) {
-      console.error('Error al buscar tipo de equipo:', error);
+// Función para insertar el ticket en la base de datos
+function insertTicket(res, laboratorioId, descripcionProblema, tipoServicioId) {
+  // 4. Insertar el nuevo código de equipo (pantalla) en la tabla cod_equipo
+  connection.query('INSERT INTO cod_equipo (id_lab, descripcion_equipo) VALUES (?, ?)', [laboratorioId, descripcionProblema], (codEquipoError, codEquipoResults) => {
+    if (codEquipoError) {
+      console.error('Error al insertar código de equipo:', codEquipoError);
       return res.status(500).send('Error en la base de datos');
     }
 
-    let tipoEquipoId;
-    if (results.length === 0) {
-      // Si no existe, insertar el nuevo tipo de equipo
-      connection.query('INSERT INTO tipo_equipo (tipo) VALUES (?)', [dispositivo], (insertError, insertResults) => {
-        if (insertError) {
-          console.error('Error al insertar tipo de equipo:', insertError);
-          return res.status(500).send('Error en la base de datos');
-        }
-        tipoEquipoId = insertResults.insertId;
+    const codigoEquipoId = codEquipoResults.insertId;  // El id del nuevo equipo insertado
+    console.log('ID del código de equipo:', codigoEquipoId);  // Depuración
 
-        // 2. Insertar el nuevo código de equipo
-        insertCodEquipo(tipoEquipoId);
-      });
-    } else {
-      tipoEquipoId = results[0].id;
+    // 5. Crear el ticket, asociando el código de equipo (pantalla) y el tipo de servicio
+    connection.query('INSERT INTO tickets (fecha_emision, descripcion_problema, codigo_equipo, id_tipo_servicio) VALUES (NOW(), ?, ?, ?)', [descripcionProblema, codigoEquipoId, tipoServicioId], (ticketError) => {
+      if (ticketError) {
+        console.error('Error al insertar ticket:', ticketError);
+        return res.status(500).send('Error en la base de datos');
+      }
 
-      // 2. Insertar el nuevo código de equipo
-      insertCodEquipo(tipoEquipoId);
-    }
-
-    function insertCodEquipo(tipoEquipoId) {
-      connection.query('INSERT INTO cod_equipo (nro_lab, id_tipo_equipo) VALUES (?, ?)', [nro_lab, tipoEquipoId], (codEquipoError, codEquipoResults) => {
-        if (codEquipoError) {
-          console.error('Error al insertar código de equipo:', codEquipoError);
-          return res.status(500).send('Error en la base de datos');
-        }
-
-        const codigoEquipoId = codEquipoResults.insertId;
-
-        // 3. Insertar el nuevo ticket
-        connection.query('INSERT INTO tickets (fecha_emision, descripcion_problema, codigo_equipo) VALUES (NOW(), ?, ?)', [descripcionProblema, codigoEquipoId], (ticketError) => {
-          if (ticketError) {
-            console.error('Error al insertar ticket:', ticketError);
-            return res.status(500).send('Error en la base de datos');
-          }
-
-          res.redirect('/arreglo.html');
-        });
-      });
-    }
+      // Redirigir al usuario después de que se inserte el ticket
+      res.status(200).send('Ticket registrado correctamente');
+    });
   });
-});
+}
 
 // Ruta para obtener los laboratorios
 app.get('/labs', (req, res) => {
@@ -128,25 +132,16 @@ app.get('/labs', (req, res) => {
   });
 });
 
-// Ruta para agregar un laboratorio
-app.post('/add-lab', express.json(), (req, res) => {
-  const { nombreLab } = req.body;
-  console.log('Datos recibidos:', req.body);  // Mostrar lo que se está recibiendo
-  
-  if (!nombreLab) {
-    return res.status(400).json({ error: 'El nombre del laboratorio es requerido' });
-  }
-
-  const query = 'INSERT INTO laboratorio (nombreLab) VALUES (?)';
-  connection.query(query, [nombreLab], (err, result) => {
+// Ruta para obtener los tipos de servicio
+app.get('/tipos-servicio', (req, res) => {
+  const query = 'SELECT * FROM tipo_servicio';
+  connection.query(query, (err, results) => {
     if (err) {
-      console.error('Error al agregar laboratorio:', err);  // Mostrar el error completo en la consola
-      return res.status(500).json({ error: 'Hubo un error al agregar el laboratorio', details: err });
+      return res.status(500).json({ error: 'Hubo un error al obtener los tipos de servicio' });
     }
-    res.status(200).json({ message: 'Laboratorio agregado correctamente', id: result.insertId });
+    res.status(200).json(results);
   });
 });
-
 
 // Inicia el servidor
 app.listen(port, () => {

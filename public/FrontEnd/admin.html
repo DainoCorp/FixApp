@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar Laboratorio</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
   <div class="container mt-5">
     <h2>Agregar Nuevo Laboratorio</h2>
+
+    <!-- Formulario para agregar o seleccionar un laboratorio -->
     <form id="addLabForm">
       <div class="form-group">
         <label for="labName">Nombre del Laboratorio</label>
@@ -16,12 +20,49 @@
       </div>
       <button type="submit" class="btn btn-primary">Agregar Laboratorio</button>
     </form>
+
+    <!-- Mostrar lista de laboratorios -->
+    <div class="mt-4">
+      <h3>Seleccionar un Laboratorio Existente</h3>
+      <select class="form-control" id="existingLabs" name="laboratorio" required>
+        <option value="">Selecciona un laboratorio existente</option>
+        <!-- Opciones de laboratorios se llenarán dinámicamente -->
+      </select>
+    </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Manejar la solicitud de agregar un laboratorio
+      // Llenar la lista de laboratorios existentes al cargar la página
+      $.ajax({
+        url: '/labs',  // Endpoint que devuelve los laboratorios
+        type: 'GET',
+        success: function (data) {
+          // Validamos que `data` sea un array y que cada laboratorio tenga el nombre correctamente
+          if (Array.isArray(data)) {
+            data.forEach(function (lab) {
+              // Verificamos si lab.nombreLab existe
+              if (lab.nombreLab) {
+                // Agregar la opción al select con el nombre del laboratorio como value y texto
+                if ($('#existingLabs option[value="' + lab.nombreLab + '"]').length === 0) {
+                  $('#existingLabs').append(`<option value="${lab.nombreLab}">${lab.nombreLab}</option>`);
+                }
+              } else {
+                console.error('Nombre del laboratorio no encontrado:', lab);
+              }
+            });
+          } else {
+            console.error('Los datos de laboratorios no están en el formato esperado.');
+          }
+        },
+        error: function (err) {
+          alert('Hubo un error al obtener los laboratorios');
+          console.error(err);
+        }
+      });
+
+      // Manejar la solicitud de agregar un nuevo laboratorio
       $('#addLabForm').submit(function (e) {
         e.preventDefault();
 
@@ -31,15 +72,27 @@
           return;
         }
 
-        // Enviar la solicitud para agregar el laboratorio
+        // Verificamos si el laboratorio ya existe
+        if ($('#existingLabs option[value="' + labName + '"]').length > 0) {
+          alert('Este laboratorio ya existe en la lista.');
+          return;
+        }
+
+        // Enviar la solicitud para agregar el nuevo laboratorio
         $.ajax({
           url: '/add-lab',
           type: 'POST',
           contentType: 'application/json',
-          data: JSON.stringify({ nombreLab: labName }),
+          data: JSON.stringify({ nombreLab: labName }),  // Enviar el nombre del laboratorio
           success: function (response) {
             alert('Laboratorio agregado correctamente');
             $('#labName').val('');  // Limpiar el campo de entrada
+
+            // Desmarcar cualquier opción seleccionada previamente
+            $('#existingLabs').val('');
+
+            // Agregar el laboratorio a la lista de laboratorios existentes
+            $('#existingLabs').append(`<option value="${labName}" selected>${labName}</option>`);
           },
           error: function (err) {
             alert('Hubo un error al agregar el laboratorio');
@@ -47,7 +100,16 @@
           }
         });
       });
+
+      // Manejar la selección de un laboratorio existente
+      $('#existingLabs').change(function () {
+        var selectedLab = $(this).val();
+        if (selectedLab) {
+          alert('Laboratorio seleccionado: ' + selectedLab);
+        }
+      });
     });
   </script>
 </body>
+
 </html>
