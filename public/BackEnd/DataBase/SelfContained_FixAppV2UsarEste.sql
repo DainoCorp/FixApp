@@ -133,8 +133,10 @@ DROP TABLE IF EXISTS `laboratorio`;
 CREATE TABLE `laboratorio` (
   `idlaboratorio` int(11) NOT NULL AUTO_INCREMENT,
   `nombreLab` varchar(45) NOT NULL,
-  PRIMARY KEY (`idlaboratorio`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `idusuario` int(11) NOT NULL,
+  PRIMARY KEY (`idlaboratorio`),
+  KEY `laboratorio_userId_idx` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +145,6 @@ CREATE TABLE `laboratorio` (
 
 LOCK TABLES `laboratorio` WRITE;
 /*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
-INSERT INTO `laboratorio` VALUES (1,'LAB 6 COMPUTACION');
 /*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +189,7 @@ CREATE TABLE `tipo_servicio` (
   `idtipo_servicio` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_servicio` varchar(45) NOT NULL,
   PRIMARY KEY (`idtipo_servicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,12 +198,34 @@ CREATE TABLE `tipo_servicio` (
 
 LOCK TABLES `tipo_servicio` WRITE;
 /*!40000 ALTER TABLE `tipo_servicio` DISABLE KEYS */;
+INSERT INTO `tipo_servicio` VALUES (1,'limpieza'),(2,'arreglo');
 /*!40000 ALTER TABLE `tipo_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'appfix'
+-- Table structure for table `usuario`
 --
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `idusers` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `mail` varchar(45) NOT NULL,
+  `contraseña` varchar(45) NOT NULL,
+  PRIMARY KEY (`idusers`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'appfix'
@@ -217,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-05 11:46:00
+-- Dump completed on 2024-11-14 11:13:08
