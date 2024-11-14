@@ -4,60 +4,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agregar Laboratorio</title>
+  <title>Admin</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Colores pastel personalizados */
+    body {
+      background-color: #a0abd8; /* Color de fondo suave */
+      font-family: cursive;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    .container {
+      background-color: #ffffff; /* Fondo blanco para el contenedor */
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2, h3 {
+      color: #5b5e7b; /* Color pastel suave para los encabezados */
+    }
+
+    .btn-primary {
+      background-color: #a8b0f9; /* Botón con color pastel */
+      border-color: #a8cbf9;
+    }
+
+    .btn-primary:hover {
+      background-color: #b7bbf8; /* Color del botón al pasar el mouse */
+      border-color: #b8b7f8;
+    }
+
+    .card {
+      border: none;
+      background-color: #e0e2f1; /* Fondo de tarjetas en color pastel */
+    }
+
+    .card-body {
+      background-color: #d7d8f8; /* Fondo suave para el contenido de la tarjeta */
+    }
+
+    .alert-info {
+      background-color: #c2c2c2; /* Fondo pastel verde suave para los mensajes */
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Contenedor principal -->
   <div class="container mt-5">
-    <h2>Agregar Nuevo Laboratorio</h2>
+    <h2 class="text-center">Administrador de Laboratorios</h2>
 
-    <!-- Formulario para agregar o seleccionar un laboratorio -->
-    <form id="addLabForm">
-      <div class="form-group">
-        <label for="labName">Nombre del Laboratorio</label>
-        <input type="text" class="form-control" id="labName" placeholder="Ejemplo: LAB1" required>
+    <!-- Formulario para agregar un nuevo laboratorio -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>Agregar Nuevo Laboratorio</h3>
+        <form id="addLabForm">
+          <div class="form-group">
+            <label for="labName">Nombre del Laboratorio</label>
+            <input type="text" class="form-control" id="labName" placeholder="Ejemplo: LAB1" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Agregar Laboratorio</button>
+        </form>
       </div>
-      <button type="submit" class="btn btn-primary">Agregar Laboratorio</button>
-    </form>
-
-    <!-- Mostrar lista de laboratorios -->
-    <div class="mt-4">
-      <h3>Seleccionar un Laboratorio Existente</h3>
-      <select class="form-control" id="existingLabs" name="laboratorio" required>
-        <option value="">Selecciona un laboratorio existente</option>
-        <!-- Opciones de laboratorios se llenarán dinámicamente -->
-      </select>
     </div>
+
+    <!-- Mostrar lista de tickets -->
+    <div id="ticketSection" class="mt-5">
+      <h3 class="text-center">Tickets Registrados</h3>
+
+      <!-- Mensaje si no hay tickets -->
+      <div id="noTicketsMessage" class="alert alert-info d-none" role="alert">
+        No hay tickets registrados aún.
+      </div>
+
+      <!-- Mostrar número de tickets -->
+      <div id="ticketCountMessage" class="alert alert-info d-none" role="alert">
+        Hay <span id="ticketCount">0</span> tickets registrados.
+      </div>
+
+      <!-- Contenedor donde se mostrarán los tickets -->
+      <div id="ticketContainer" class="row mt-4">
+        <!-- Los tickets se cargarán aquí dinámicamente -->
+      </div>
+    </div>
+
   </div>
 
+  <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Llenar la lista de laboratorios existentes al cargar la página
+      // Cargar los tickets al cargar la página
       $.ajax({
-        url: '/labs',  // Endpoint que devuelve los laboratorios
+        url: '/tickets',  // Ruta para obtener los tickets
         type: 'GET',
         success: function (data) {
-          // Validamos que `data` sea un array y que cada laboratorio tenga el nombre correctamente
-          if (Array.isArray(data)) {
-            data.forEach(function (lab) {
-              // Verificamos si lab.nombreLab existe
-              if (lab.nombreLab) {
-                // Agregar la opción al select con el nombre del laboratorio como value y texto
-                if ($('#existingLabs option[value="' + lab.nombreLab + '"]').length === 0) {
-                  $('#existingLabs').append(`<option value="${lab.nombreLab}">${lab.nombreLab}</option>`);
-                }
-              } else {
-                console.error('Nombre del laboratorio no encontrado:', lab);
-              }
+          if (Array.isArray(data) && data.length > 0) {
+            $('#noTicketsMessage').addClass('d-none');  // Ocultar mensaje de no tickets
+            $('#ticketCountMessage').removeClass('d-none');  // Mostrar el número de tickets
+
+            // Mostrar el número de tickets
+            $('#ticketCount').text(data.length);
+
+            data.forEach(function (ticket, index) {
+              const ticketCard = `
+                <div class="col-md-4 mb-4">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title">Ticket #${index + 1}</h5> <!-- Número secuencial de ticket -->
+                      <h6 class="card-subtitle mb-2 text-muted">Laboratorio: ${ticket.nombreLab}</h6>
+                      <p class="card-text"><strong>Descripción del Problema:</strong> ${ticket.descripcion_problema}</p>
+                      <p class="card-text"><strong>Tipo de Servicio:</strong> ${ticket.tipo_servicio}</p>
+                      <p class="card-text"><strong>Equipo Afectado:</strong> ${ticket.descripcion_equipo}</p>
+                      <p class="card-text"><small class="text-muted">Fecha de emisión: ${new Date(ticket.fecha_emision).toLocaleString()}</small></p>
+                    </div>
+                  </div>
+                </div>
+              `;
+
+              $('#ticketContainer').append(ticketCard);
             });
           } else {
-            console.error('Los datos de laboratorios no están en el formato esperado.');
+            $('#noTicketsMessage').removeClass('d-none');  // Mostrar mensaje de no tickets
+            $('#ticketCountMessage').addClass('d-none');  // Ocultar el número de tickets
           }
         },
         error: function (err) {
-          alert('Hubo un error al obtener los laboratorios');
+          alert('Hubo un error al obtener los tickets');
           console.error(err);
         }
       });
@@ -72,12 +148,6 @@
           return;
         }
 
-        // Verificamos si el laboratorio ya existe
-        if ($('#existingLabs option[value="' + labName + '"]').length > 0) {
-          alert('Este laboratorio ya existe en la lista.');
-          return;
-        }
-
         // Enviar la solicitud para agregar el nuevo laboratorio
         $.ajax({
           url: '/add-lab',
@@ -87,26 +157,12 @@
           success: function (response) {
             alert('Laboratorio agregado correctamente');
             $('#labName').val('');  // Limpiar el campo de entrada
-
-            // Desmarcar cualquier opción seleccionada previamente
-            $('#existingLabs').val('');
-
-            // Agregar el laboratorio a la lista de laboratorios existentes
-            $('#existingLabs').append(`<option value="${labName}" selected>${labName}</option>`);
           },
           error: function (err) {
             alert('Hubo un error al agregar el laboratorio');
             console.error(err);
           }
         });
-      });
-
-      // Manejar la selección de un laboratorio existente
-      $('#existingLabs').change(function () {
-        var selectedLab = $(this).val();
-        if (selectedLab) {
-          alert('Laboratorio seleccionado: ' + selectedLab);
-        }
       });
     });
   </script>
