@@ -85,7 +85,6 @@ app.post("/arreglo", (req, res) => {
         console.log('Tipo de servicio no encontrado, insertando...');
         connection.query('INSERT INTO tipo_servicio (tipo_servicio) VALUES (?)', [tipoServicio], (insertTipoServicioError, insertTipoServicioResults) => {
           if (insertTipoServicioError) {
-            console.error('Error al insertar tipo de servicio:', insertTipoServicioError);
             return res.status(500).send('Error al insertar tipo de servicio');
           }
 
@@ -188,7 +187,64 @@ app.get('/tickets', (req, res) => {
   });
 });
 
+// Ruta para eliminar un ticket
+app.delete('/delete-ticket/:ticketId', (req, res) => {
+  const ticketId = req.params.ticketId;
 
+  // Primero, necesitamos obtener el id del código de equipo relacionado con el ticket
+  connection.query('SELECT codigo_equipo FROM tickets WHERE id = ?', [ticketId], (err, results) => {
+    if (err) {
+      console.error('Error al obtener el código de equipo:', err);
+      return res.status(500).send('Hubo un error al obtener el código de equipo');
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send('Ticket no encontrado');
+    }
+
+    const codigoEquipoId = results[0].codigo_equipo;
+
+    // Empezamos la transacción para eliminar de ambas tablas
+    connection.beginTransaction((err) => {
+      if (err) {
+        console.error('Error al iniciar la transacción:', err);
+        return res.status(500).send('Error al iniciar la transacción');
+      }
+
+      // Eliminar el ticket de la tabla tickets
+      connection.query('DELETE FROM tickets WHERE id = ?', [ticketId], (err) => {
+        if (err) {
+          return connection.rollback(() => {
+            console.error('Error al eliminar ticket:', err);
+            res.status(500).send('Error al eliminar el ticket');
+          });
+        }
+
+        // Eliminar el código de equipo de la tabla cod_equipo
+        connection.query('DELETE FROM cod_equipo WHERE id = ?', [codigoEquipoId], (err) => {
+          if (err) {
+            return connection.rollback(() => {
+              console.error('Error al eliminar código de equipo:', err);
+              res.status(500).send('Error al eliminar el código de equipo');
+            });
+          }
+
+          // Commit de la transacción
+          connection.commit((err) => {
+            if (err) {
+              return connection.rollback(() => {
+                console.error('Error al hacer commit:', err);
+                res.status(500).send('Error al hacer commit');
+              });
+            }
+
+            res.send('Ticket y código de equipo eliminados correctamente');
+          });
+        });
+      });
+    });
+  });
+});
 
 // Inicia el servidor
 app.listen(port, () => {

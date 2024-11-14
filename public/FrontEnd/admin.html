@@ -49,6 +49,16 @@
     .alert-info {
       background-color: #c2c2c2; /* Fondo pastel verde suave para los mensajes */
     }
+
+    .btn-danger {
+      background-color: #f0a0a0;
+      border-color: #f0a0a0;
+    }
+
+    .btn-danger:hover {
+      background-color: #f5b4b4;
+      border-color: #f5b4b4;
+    }
   </style>
 </head>
 
@@ -114,12 +124,13 @@
                 <div class="col-md-4 mb-4">
                   <div class="card shadow-sm">
                     <div class="card-body">
-                      <h5 class="card-title">Ticket #${index + 1}</h5> <!-- Número secuencial de ticket -->
+                      <h5 class="card-title">Ticket #${index + 1}</h5>
                       <h6 class="card-subtitle mb-2 text-muted">Laboratorio: ${ticket.nombreLab}</h6>
                       <p class="card-text"><strong>Descripción del Problema:</strong> ${ticket.descripcion_problema}</p>
                       <p class="card-text"><strong>Tipo de Servicio:</strong> ${ticket.tipo_servicio}</p>
                       <p class="card-text"><strong>Equipo Afectado:</strong> ${ticket.descripcion_equipo}</p>
                       <p class="card-text"><small class="text-muted">Fecha de emisión: ${new Date(ticket.fecha_emision).toLocaleString()}</small></p>
+                      <button class="btn btn-danger" onclick="deleteTicket(${ticket.id})">Eliminar</button>
                     </div>
                   </div>
                 </div>
@@ -165,6 +176,24 @@
         });
       });
     });
+
+    // Función para eliminar un ticket
+    function deleteTicket(ticketId) {
+      if (confirm("¿Estás seguro de que deseas eliminar este ticket?")) {
+        $.ajax({
+          url: `/delete-ticket/${ticketId}`,  // Ruta para eliminar el ticket
+          type: 'DELETE',
+          success: function (response) {
+            alert('Ticket eliminado correctamente');
+            location.reload();  // Recargar la página para reflejar los cambios
+          },
+          error: function (err) {
+            alert('Hubo un error al eliminar el ticket');
+            console.error(err);
+          }
+        });
+      }
+    }
   </script>
 </body>
 
