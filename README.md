@@ -64,5 +64,3 @@ Node.js cuenta con npm (Node Package Manager), uno de los ecosistemas de paquete
 Gracias al motor V8 de Google, Node.js ejecuta código JavaScript a alta velocidad, optimizando la eficiencia del servidor. Su naturaleza no bloqueante asegura una utilización eficiente de los recursos del sistema.
 Node.js cuenta con una comunidad activa y en expansión, lo cual garantiza un amplio soporte a través de documentación, foros de discusión y contribuciones de código abierto, asegurando que los desarrolladores siempre encuentren ayuda y recursos para mejorar sus proyectos.
 
-### Diagrama de la base de datos
-[![Db-Diagram.png](https://i.postimg.cc/VNTX5bWx/Db-Diagram.png)](https://postimg.cc/kVQ2pGZs)
