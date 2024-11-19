@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!-- Barra de navegación -->
   <nav class="navbar navbar-expand-md navbar-dark">
     <h2 class="navbar-brand" href="#">
       <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
@@ -20,14 +21,28 @@
       </div>
     </h2>
 
+    <!-- Botón de colapsar para dispositivos pequeños -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Menú de navegación -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+        <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
+        <li class="nav-item" id="loginLink">
           <a class="nav-link" href="login.html">Login(❁´◡`❁)</a>
+        </li>
+        <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
+        <li class="nav-item dropdown" id="userMenu" style="display: none;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <span id="userName">Mi Cuenta</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h6 class="dropdown-header">Mi Cuenta</h6> <!-- Título dentro del menú desplegable -->
+            <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link clicked" href="index.html">Inicio</a>
@@ -35,9 +50,9 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Soporte Técnico <span class="caret"></span>
+            Soporte Técnico
           </a>
-          <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="arreglo.html">Servicios</a>
             <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
           </div>
@@ -52,6 +67,7 @@
     </div>
   </nav>
 
+  <!-- Carrusel de imágenes -->
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -66,24 +82,8 @@
           <a class="btn btn-primary custom-button" id="botonCarousel" href="nosotros.html">Más Información</a>
         </div>
       </div>
-      <div class="carousel-item">
-        <img src="./img/contacto.jpg" class="d-block w-100 img-fluid" alt="Contacto">
-        <div class="carousel-caption d-none d-md-block">
-          <h5 class="info">Contacto</h5>
-          <a class="btn btn-primary custom-button" id="botonCarousel" href="contacto.html">Más Información</a>
-        </div>
-      </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Siguiente</span>
-    </a>
   </div>
-
 
   <div class="container cuadrosInfo">
     <div class="row">
@@ -117,11 +117,38 @@
     </div>
   </div>
 
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2024 Ausbessern. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
+  <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script>
+    // Comprobar si el usuario está logueado y mostrar/ocultar el enlace de Login y el menú de usuario
+    window.onload = function() {
+      const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
+      if (localStorage.getItem('loggedIn') === 'true') {
+        document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
+        document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
+        document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
+      } else {
+        document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
+        document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
+      }
+    }
+
+    // Función para cerrar sesión
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
+      window.location.href = 'index.html'; // Redirigir al inicio
+    });
+
     $(document).ready(function () {
       $('.navbar-nav .nav-link').click(function () {
         $('.navbar-nav .nav-link').removeClass('clicked');
