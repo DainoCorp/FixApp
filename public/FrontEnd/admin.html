@@ -9,7 +9,8 @@
   <style>
     /* Colores pastel personalizados */
     body {
-      background-color: #a0abd8; /* Color de fondo suave */
+      background-color: #a0abd8;
+      /* Color de fondo suave */
       font-family: cursive;
       justify-content: center;
       align-items: center;
@@ -17,37 +18,45 @@
     }
 
     .container {
-      background-color: #ffffff; /* Fondo blanco para el contenedor */
+      background-color: #ffffff;
+      /* Fondo blanco para el contenedor */
       border-radius: 10px;
       padding: 30px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    h2, h3 {
-      color: #5b5e7b; /* Color pastel suave para los encabezados */
+    h2,
+    h3 {
+      color: #5b5e7b;
+      /* Color pastel suave para los encabezados */
     }
 
     .btn-primary {
-      background-color: #a8b0f9; /* Botón con color pastel */
+      background-color: #a8b0f9;
+      /* Botón con color pastel */
       border-color: #a8cbf9;
     }
 
     .btn-primary:hover {
-      background-color: #b7bbf8; /* Color del botón al pasar el mouse */
+      background-color: #b7bbf8;
+      /* Color del botón al pasar el mouse */
       border-color: #b8b7f8;
     }
 
     .card {
       border: none;
-      background-color: #e0e2f1; /* Fondo de tarjetas en color pastel */
+      background-color: #e0e2f1;
+      /* Fondo de tarjetas en color pastel */
     }
 
     .card-body {
-      background-color: #d7d8f8; /* Fondo suave para el contenido de la tarjeta */
+      background-color: #d7d8f8;
+      /* Fondo suave para el contenido de la tarjeta */
     }
 
     .alert-info {
-      background-color: #c2c2c2; /* Fondo pastel verde suave para los mensajes */
+      background-color: #c2c2c2;
+      /* Fondo pastel verde suave para los mensajes */
     }
 
     .btn-danger {
@@ -59,26 +68,26 @@
       background-color: #f5b4b4;
       border-color: #f5b4b4;
     }
+
+    .btn-logout {
+      background-color: #f33f3f;
+      /* Color de fondo rojo para el botón de logout */
+      border-color: #f0a0a0;
+    }
+
+    .btn-logout:hover {
+      background-color: #f5b4b4;
+      border-color: #f5b4b4;
+    }
   </style>
 </head>
 
 <body>
   <!-- Contenedor principal -->
   <div class="container mt-5">
-    <h2 class="text-center">Administrador de Laboratorios</h2>
-
-    <!-- Formulario para agregar un nuevo laboratorio -->
-    <div class="row">
-      <div class="col-lg-12">
-        <h3>Agregar Nuevo Laboratorio</h3>
-        <form id="addLabForm">
-          <div class="form-group">
-            <label for="labName">Nombre del Laboratorio</label>
-            <input type="text" class="form-control" id="labName" placeholder="Ejemplo: LAB1" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Agregar Laboratorio</button>
-        </form>
-      </div>
+    <!-- Botón de logout -->
+    <div class="text-right mb-3">
+      <button class="btn btn-logout" onclick="logout()">Cerrar sesión</button>
     </div>
 
     <!-- Mostrar lista de tickets -->
@@ -193,6 +202,26 @@
           }
         });
       }
+    }
+
+    // Función para cerrar sesión
+    function logout() {
+      $.ajax({
+        url: '/logout',  // Ruta para cerrar sesión
+        type: 'POST',
+        success: function () {
+          // Limpiar cualquier almacenamiento local o de sesión
+          localStorage.removeItem('loggedIn'); // Eliminar estado "loggeado" de localStorage
+          sessionStorage.removeItem('loggedIn'); // Eliminar estado "loggeado" de sessionStorage
+
+          // Redirigir al login
+          window.location.href = '/FrontEnd/login.html';
+        },
+        error: function (err) {
+          alert('Hubo un error al cerrar sesión');
+          console.error(err);
+        }
+      });
     }
   </script>
 </body>

@@ -5,15 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ausbessern</title>
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Ruta del archivo CSS -->
+  <link rel="stylesheet" href="/FrontEnd/styles.css">
 </head>
 
 <body>
   <!-- Barra de navegación -->
   <nav class="navbar navbar-expand-md navbar-dark">
     <h2 class="navbar-brand" href="#">
-      <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
+      <img src="/FrontEnd/img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
       <div class="textoPrinc">
         Ausbessern
         <br>
@@ -31,20 +33,33 @@
       <ul class="navbar-nav ml-auto">
         <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
         <li class="nav-item" id="loginLink">
-          <a class="nav-link" href="login.html">Login(❁´◡`❁)</a>
+          <a class="nav-link" href="/FrontEnd/login.html">Login(❁´◡`❁)</a>
         </li>
         <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
         <li class="nav-item dropdown" id="userMenu" style="display: none;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Mi Cuenta
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <h6 class="dropdown-header">Usuario</h6> <!-- Título dentro del menú desplegable -->
+            <h6 class="dropdown-header" id="user-name">Usuario</h6>
+            <a class="dropdown-item" href="/FrontEnd/cargar_Lab.html" id="logoutBtn">Cargar Lab</a>
+            <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
+          </div>
+        </li>
+        <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
+        <li class="nav-item dropdown" id="userMenu" style="display: none;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Mi Cuenta
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h6 class="dropdown-header" id="user-name">Usuario</h6>
             <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link clicked" href="index.html">Inicio</a>
+          <a class="nav-link clicked" href="/FrontEnd/index.html">Inicio</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -52,15 +67,15 @@
             Soporte Técnico
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="arreglo.html">Servicios</a>
-            <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
+            <a class="dropdown-item" href="/FrontEnd/arreglo.html">Servicios</a>
+            <a class="dropdown-item" href="/FrontEnd/asesoramiento.html">Asesoramiento</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="nosotros.html">Nosotros</a>
+          <a class="nav-link" href="/FrontEnd/nosotros.html">Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="contacto.html">Contacto</a>
+          <a class="nav-link" href="/FrontEnd/contacto.html">Contacto</a>
         </li>
       </ul>
     </div>
@@ -70,15 +85,15 @@
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./img/imgFondo.png" class="d-block w-100 img-fluid" alt="Nosotros">
+        <img src="/FrontEnd/img/imgFondo.png" class="d-block w-100 img-fluid" alt="Nosotros">
         <div class="carousel-caption d-none d-md-block">
         </div>
       </div>
       <div class="carousel-item">
-        <img src="./img/nosotros.jpg" class="d-block w-100 img-fluid" alt="Nosotros">
+        <img src="/FrontEnd/img/nosotros.jpg" class="d-block w-100 img-fluid" alt="Nosotros">
         <div class="carousel-caption d-none d-md-block">
           <h5 class="info">Nosotros</h5>
-          <a class="btn btn-primary custom-button" id="botonCarousel" href="nosotros.html">Más Información</a>
+          <a class="btn btn-primary custom-button" id="botonCarousel" href="/FrontEnd/nosotros.html">Más Información</a>
         </div>
       </div>
     </div>
@@ -88,28 +103,28 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="cuadro text-center">
-          <img src="./img/gear-solid.svg" class="foto" id="foto1" alt="Producto 1">
+          <img src="/FrontEnd/img/gear-solid.svg" class="foto" id="foto1" alt="Producto 1">
           <h2 class="textoCuadro" id="texto1">Mejora de la productividad</h2>
         </div>
       </div>
 
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="cuadro text-center">
-          <img src="./img/ranking-star-solid.svg" class="foto" id="foto2" alt="Producto 2">
+          <img src="/FrontEnd/img/ranking-star-solid.svg" class="foto" id="foto2" alt="Producto 2">
           <h2 class="textoCuadro" id="texto2">Aumento de la calidad</h2>
         </div>
       </div>
 
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="cuadro text-center">
-          <img src="./img/hourglass-solid.svg" class="foto" alt="Producto 3">
+          <img src="/FrontEnd/img/hourglass-solid.svg" class="foto" alt="Producto 3">
           <h2 class="textoCuadro" id="texto3">Soluciones rápidas y eficaces</h2>
         </div>
       </div>
 
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="cuadro text-center">
-          <img src="./img/users-line-solid.svg" class="foto" id="foto4" alt="Producto 4">
+          <img src="/FrontEnd/img/users-line-solid.svg" class="foto" id="foto4" alt="Producto 4">
           <h2 class="textoCuadro" id="texto4">Hecho por y para alumnos</h2>
         </div>
       </div>
@@ -129,29 +144,61 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    // Comprobar si el usuario está logueado y mostrar/ocultar el enlace de Login y el menú de usuario
-    window.onload = function() {
-      const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
-      if (localStorage.getItem('loggedIn') === 'true') {
-        document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
-        document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
-        document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
-      } else {
-        document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
-        document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
-      }
+    // Usar el nombre del usuario proporcionado por el backend
+    const userName = "<%= userName %>";  // Usamos EJS para inyectar el nombre
+    if (userName) {
+      document.getElementById('user-name').innerText = "Hola, " + userName;
     }
+  </script>
 
-    // Función para cerrar sesión
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
-      window.location.href = 'index.html'; // Redirigir al inicio
-    });
+  <script>
+    // Esperamos que el DOM esté completamente cargado antes de ejecutar el código
+    document.addEventListener('DOMContentLoaded', function () {
+      // Obtener los elementos del DOM que vamos a manipular
+      const loginLink = document.getElementById('loginLink');
+      const userMenu = document.getElementById('userMenu');
+      const userNameElement = document.getElementById('user-name');
+      const logoutBtn = document.getElementById('logoutBtn');  // Botón de cerrar sesión
 
-    $(document).ready(function () {
-      $('.navbar-nav .nav-link').click(function () {
-        $('.navbar-nav .nav-link').removeClass('clicked');
-        $(this).addClass('clicked');
+      // Obtener el estado de sesión y el nombre de usuario desde localStorage
+      const loggedIn = localStorage.getItem('loggedIn') === 'true';
+      const userName = localStorage.getItem('username');
+
+      // Si el usuario está logueado, mostramos el menú de usuario
+      if (loginLink && userMenu && userNameElement) {
+        if (loggedIn) {
+          loginLink.style.display = 'none'; // Ocultar el enlace de login
+          userMenu.style.display = 'block'; // Mostrar el menú de usuario
+
+          // Verificar si el nombre de usuario está disponible y mostrarlo
+          if (userName && userName.trim() !== '') {
+            userNameElement.textContent = "Hola, " + userName;
+          } else {
+            userNameElement.textContent = "Hola, Usuario"; // Valor predeterminado si no hay nombre
+          }
+        } else {
+          loginLink.style.display = 'block'; // Mostrar el enlace de login si no está logueado
+          userMenu.style.display = 'none'; // Ocultar el menú de usuario
+        }
+      }
+
+      // Función para cerrar sesión
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          // Marcar como no logueado y redirigir al login
+          localStorage.setItem('loggedIn', 'false');
+          localStorage.removeItem('username');  // Eliminar el nombre de usuario almacenado
+          window.location.href = '/FrontEnd/login.html';  // Redirigir a login.html
+        });
+      }
+
+      // Usar jQuery para manejar la clase 'clicked' en la barra de navegación
+      $(document).ready(function () {
+        $('.navbar-nav .nav-link').click(function () {
+          // Remover la clase 'clicked' de todos los enlaces y agregarla al clickeado
+          $('.navbar-nav .nav-link').removeClass('clicked');
+          $(this).addClass('clicked');
+        });
       });
     });
   </script>

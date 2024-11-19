@@ -8,47 +8,59 @@ const bcrypt = require('bcrypt'); // Reemplazamos crypto por bcrypt
 const app = express();
 const port = 3000;
 
-// Configura la conexión a la base de datos
+// Configuración de la base de datos
 const connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'appfix'
+  database: 'appfix',
 });
 
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public', 'FrontEnd')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Configuración de la sesión
 app.use(
   session({
     secret: 'secret_key',
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false } // Asegúrate de poner 'true' en producción con HTTPS
   })
 );
-// Middleware para verificar si el usuario está logueado
+
+// Middleware para verificar si el usuario está logueado y pasar el nombre al frontend
 function setLoggedIn(req, res, next) {
   res.locals.loggedIn = req.session.loggedIn || false;
+  res.locals.userName = req.session.userName || ''; // Pasa el nombre del usuario
   next();
 }
 
-// Usar el middleware en todas las rutas
 app.use(setLoggedIn);
 
-// Middleware para verificar si el usuario está logueado
-function ensureLoggedIn(req, res, next) {
-  if (req.session.loggedIn) {
-    return next();
-  }
-  res.redirect('/login.html');
-}
-
-// Ruta para servir la página de inicio
+// Ruta principal (redirección dependiendo de si es admin o no)
 app.get('/', ensureLoggedIn, (req, res) => {
+  console.log("Usuario logueado:", req.session.user.mail);  // Log para verificar el correo del usuario
+  if (req.session.user.mail.trim().toLowerCase() === 'admin@gmail.com') {
+    console.log("Redirigiendo a admin.html");
+    return res.redirect('/FrontEnd/admin.html');
+  }
+  console.log("Redirigiendo a index.html");
   res.sendFile(path.join(__dirname, 'public', 'FrontEnd', 'index.html'));
 });
 
+
+// Verificar que el usuario esté logueado
+function ensureLoggedIn(req, res, next) {
+  if (!req.session.loggedIn) {
+    return res.redirect('/FrontEnd/login.html'); // Si no está logueado, redirige al login
+  }
+  next();
+}
+
+// Ruta para registrar un nuevo usuario
 app.post('/register', async (req, res) => {
   const { nombre, email, password } = req.body;
 
@@ -71,67 +83,65 @@ app.post('/register', async (req, res) => {
     await connection.query(query, [nombre, email, hashedPassword]);
 
     // Redirigir a la página principal después de registro
-    res.redirect('/');
+    res.redirect('/FrontEnd/login.html');
   } catch (err) {
     console.error('Error al registrar usuario:', err);
     res.status(500).send('Hubo un error al registrar al usuario');
   }
 });
 
-
+// Ruta para login de usuarios
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  console.log('Intento de inicio de sesión:', { email, password });
-
   if (!email || !password) {
-    console.log('Error: Falta correo o contraseña');
     return res.status(400).send('El correo y la contraseña son obligatorios');
   }
 
   try {
+    // Buscar el usuario en la base de datos por su correo
     const [results] = await connection.query('SELECT * FROM usuario WHERE mail = ?', [email]);
-    console.log('Resultados de la consulta:', results);
 
+    // Si no se encuentra el usuario
     if (results.length === 0) {
-      console.log('Error: Correo no encontrado');
       return res.status(400).send('Correo no encontrado');
     }
 
-    const user = results[0];
-    console.log('Usuario encontrado:', user);
+    const user = results[0]; // El primer usuario encontrado
 
-    const storedPassword = user.contraseña;
-    const match = await bcrypt.compare(password, storedPassword);
-    console.log('Comparación de contraseñas:', match);
+    // Verificar la contraseña con bcrypt
+    const match = await bcrypt.compare(password, user.contraseña);
 
+    // Si las contraseñas no coinciden
     if (!match) {
-      console.log('Error: Contraseña incorrecta');
       return res.status(400).send('Contraseña incorrecta');
     }
 
     // Guardamos al usuario en la sesión
     req.session.loggedIn = true;
     req.session.user = user;
+    req.session.userName = user.nombre;
 
-    // Redirección si el correo es admin@gmail.com
-    if (user.mail === 'admin@gmail.com') {
-      console.log('Redirigiendo a admin.html');
-      return res.sendFile(path.join(__dirname, 'public', 'FrontEnd', 'admin.html'));
+    // Depurar para verificar los datos de sesión
+    console.log("Datos de sesión después de login:", req.session);
+
+    // Verificar si el usuario es admin (basado en su correo)
+    if (user.mail.trim().toLowerCase() === 'admin@gmail.com') {
+      console.log('El usuario es administrador, redirigiendo a admin.html');
+      return res.redirect('/FrontEnd/admin.html');  // Asegurando que redirige correctamente
     }
 
     // Si no es admin, redirigir a la página principal
-    console.log('Redirigiendo a la página principal');
-    res.redirect('/');
+    console.log('El usuario no es administrador, redirigiendo a index.html');
+    res.redirect('/');  // Si no es admin, se redirige a index.html
   } catch (err) {
     console.error('Error en el login:', err);
     res.status(500).send('Error en el inicio de sesión');
   }
 });
 
-
 // Ruta para manejar el formulario de arreglo
-app.post("/arreglo", ensureLoggedIn, async (req, res) => { // Aseguramos que solo los usuarios logueados puedan acceder
+app.post("/arreglo", ensureLoggedIn, async (req, res) => {
   const { tipoServicio, laboratorio, tipoEquipo, descripcionProblema } = req.body;
 
   if (!tipoServicio || !laboratorio || !tipoEquipo || !descripcionProblema) {
@@ -176,7 +186,7 @@ async function insertTicket(res, laboratorioId, tipoEquipo, tipoServicioId, desc
 
     await connection.query('INSERT INTO tickets (fecha_emision, descripcion_problema, codigo_equipo, id_tipo_servicio) VALUES (NOW(), ?, ?, ?)', [descripcionProblema, codigoEquipoId, tipoServicioId]);
 
-    res.redirect('/arreglo.html');
+    res.redirect('/FrontEnd/arreglo.html');
   } catch (error) {
     console.error('Error al insertar ticket:', error);
     res.status(500).send('Error al insertar ticket');
@@ -266,17 +276,39 @@ app.delete('/delete-ticket/:ticketId', async (req, res) => {
   }
 });
 
-// Agregar ruta para cerrar sesión
 app.post('/logout', (req, res) => {
-  req.session.destroy((err) => {
+  // Asegúrate de destruir la sesión antes de redirigir
+  req.session.destroy(function(err) {
     if (err) {
       return res.status(500).send('Error al cerrar sesión');
     }
-    res.clearCookie('connect.sid'); // Eliminar la cookie de sesión
-    res.redirect('/'); // Redirigir a la página principal después de logout
+    res.status(200).send('Sesión cerrada correctamente');
   });
 });
 
+// Ruta para procesar el formulario de contacto
+app.post('/contacto', async (req, res) => {
+  const { nombre, email, phone, message } = req.body;
+
+  // Verificar que todos los campos estén presentes
+  if (!nombre || !email || !phone || !message) {
+    return res.status(400).send('Todos los campos son requeridos');
+  }
+
+  try {
+    // SQL para insertar los datos en la tabla "contacto"
+    const query = 'INSERT INTO contacto (nombre, email, phone, message) VALUES (?, ?, ?, ?)';
+
+    // Ejecutar la consulta SQL utilizando el pool de conexiones (con async/await)
+    await connection.query(query, [nombre, email, phone, message]);
+
+    // Si los datos se guardan correctamente, redirigir a la página de contacto
+    res.redirect('/FrontEnd/contacto.html');  // Esto recargará la página de contacto
+  } catch (err) {
+    console.error('Error al insertar los datos en la base de datos:', err);
+    return res.status(500).send('Error al guardar los datos');
+  }
+});
 
 // Inicia el servidor
 app.listen(port, () => {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/FrontEnd/styles.css">
   <title>Nosotros</title>
 </head>
 
@@ -34,7 +34,7 @@
         <li class="nav-item dropdown" id="userMenu" style="display: none;">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <span id="userName">Mi Cuenta</span>
+            Mi Cuenta
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <h6 class="dropdown-header">Mi Cuenta</h6> <!-- Título dentro del menú desplegable -->
@@ -222,10 +222,10 @@
       if (selectedService === 'Limpieza') {
         dispositivoSelect.find('option[value="LAB6"]').hide();  // Aquí cambiamos para ocultar una opción si es Limpieza
         dispositivoSelect.val('LAB6');
-        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        labInput.attr('placeholder', 'Número de Pantalla (Por ejemplo: PA17)');
       } else {
         dispositivoSelect.find('option[value="LAB6"]').show();  // Mostrar la opción de LAB6 si no es Limpieza
-        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        labInput.attr('placeholder', 'Número de Pantalla (Por ejemplo: PA17)');
       }
     });
 
@@ -235,9 +235,9 @@
       var labInput = $('#inputLab');
 
       if (selectedDevice === 'LAB6') {
-        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB6-CP01)');
+        labInput.attr('placeholder', 'Número de Pantalla (Por ejemplo: PA17)');
       } else {
-        labInput.attr('placeholder', 'Número de Laboratorio (Por ejemplo: LAB4-CP07)');
+        labInput.attr('placeholder', 'Número de Pantalla (Por ejemplo: PA17)');
       }
     });
   </script>
