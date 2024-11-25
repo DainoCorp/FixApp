@@ -51,7 +51,6 @@ app.get('/', ensureLoggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'FrontEnd', 'index.html'));
 });
 
-
 // Verificar que el usuario esté logueado
 function ensureLoggedIn(req, res, next) {
   if (!req.session.loggedIn) {
@@ -90,7 +89,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Ruta para login de usuarios
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -119,19 +117,18 @@ app.post('/login', async (req, res) => {
 
     // Guardamos al usuario en la sesión
     req.session.loggedIn = true;
-    req.session.user = user;
+    req.session.user = user;  // Guardar el objeto completo del usuario
     req.session.userName = user.nombre;
 
     // Depurar para verificar los datos de sesión
     console.log("Datos de sesión después de login:", req.session);
 
-    // Verificar si el usuario es admin (basado en su correo)
+    // Redirigir al usuario dependiendo si es administrador o no
     if (user.mail.trim().toLowerCase() === 'admin@gmail.com') {
       console.log('El usuario es administrador, redirigiendo a admin.html');
-      return res.redirect('/FrontEnd/admin.html');  // Asegurando que redirige correctamente
+      return res.redirect('/FrontEnd/admin.html');
     }
 
-    // Si no es admin, redirigir a la página principal
     console.log('El usuario no es administrador, redirigiendo a index.html');
     res.redirect('/');  // Si no es admin, se redirige a index.html
   } catch (err) {
@@ -140,7 +137,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Ruta para manejar el formulario de arreglo
+// Ruta para procesar el formulario de arreglo
 app.post("/arreglo", ensureLoggedIn, async (req, res) => {
   const { tipoServicio, laboratorio, tipoEquipo, descripcionProblema } = req.body;
 
@@ -193,15 +190,29 @@ async function insertTicket(res, laboratorioId, tipoEquipo, tipoServicioId, desc
   }
 }
 
-// Ruta para obtener los laboratorios
-app.get('/labs', async (req, res) => {
+app.get('/labs', ensureLoggedIn, async (req, res) => {
   try {
-    const [results] = await connection.query('SELECT * FROM laboratorio');
+    const userId = req.session.user.idusuario;  // Obtener el idusuario de la sesión
+
+    if (!userId) {
+      return res.status(400).json({ error: 'No se encontró el ID del usuario logueado' });
+    }
+
+    // Consulta para obtener los laboratorios asociados al usuario logueado
+    const query = 'SELECT * FROM laboratorio WHERE idusuario = ?';
+    const [results] = await connection.query(query, [userId]);
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron laboratorios asociados a este usuario' });
+    }
+
     res.status(200).json(results);
   } catch (err) {
+    console.error('Error al obtener los laboratorios:', err);
     res.status(500).json({ error: 'Hubo un error al obtener los laboratorios' });
   }
 });
+
 
 // Ruta para obtener los tipos de servicio
 app.get('/tipos-servicio', async (req, res) => {
@@ -214,20 +225,30 @@ app.get('/tipos-servicio', async (req, res) => {
 });
 
 // Ruta para agregar un nuevo laboratorio
-app.post('/add-lab', async (req, res) => {
+app.post('/add-lab', (req, res) => {
   const { nombreLab } = req.body;
+  const idusuario = req.session.user.idusuario;  // Obtener el ID del usuario logueado
 
-  if (!nombreLab) {
-    return res.status(400).send('El nombre del laboratorio es requerido');
+  // Verificar que el nombre del laboratorio y el ID del usuario sean válidos
+  if (!nombreLab || !idusuario) {
+    return res.status(400).json({ message: 'Faltan datos para crear el laboratorio' });
   }
 
-  try {
-    await connection.query('INSERT INTO laboratorio (nombreLab) VALUES (?)', [nombreLab]);
-    res.status(200).send('Laboratorio agregado correctamente');
-  } catch (err) {
-    console.error('Error al agregar el laboratorio:', err);
-    res.status(500).send('Hubo un error al agregar el laboratorio');
-  }
+  // Insertar el laboratorio en la base de datos asociado al usuario
+  const query = 'INSERT INTO laboratorio (nombreLab, idusuario) VALUES (?, ?)';
+  connection.query(query, [nombreLab, idusuario], (err, results) => {
+    if (err) {
+      console.error('Error al agregar el laboratorio:', err);
+      return res.status(500).json({ message: 'Hubo un error al agregar el laboratorio' });
+    }
+
+    // Responder con éxito
+    res.status(200).json({
+      message: 'Laboratorio agregado correctamente',
+      idLaboratorio: results.insertId,
+      nombreLab: nombreLab
+    });
+  });
 });
 
 // Ruta para obtener los tickets
@@ -277,12 +298,12 @@ app.delete('/delete-ticket/:ticketId', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  // Asegúrate de destruir la sesión antes de redirigir
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     if (err) {
       return res.status(500).send('Error al cerrar sesión');
     }
-    res.status(200).send('Sesión cerrada correctamente');
+    res.clearCookie('connect.sid');  // Asegúrate de que la cookie se borre
+    res.redirect('/FrontEnd/login.html');  // Redirigir a login después de cerrar sesión
   });
 });
 

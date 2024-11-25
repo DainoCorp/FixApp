@@ -43,18 +43,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <h6 class="dropdown-header" id="user-name">Usuario</h6>
-            <a class="dropdown-item" href="/FrontEnd/cargar_Lab.html" id="logoutBtn">Cargar Lab</a>
-            <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
-          </div>
-        </li>
-        <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
-        <li class="nav-item dropdown" id="userMenu" style="display: none;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Mi Cuenta
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <h6 class="dropdown-header" id="user-name">Usuario</h6>
+            
+            <a class="dropdown-item" href="/FrontEnd/cargar_Lab.html">Cargar Lab</a>
             <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
           </div>
         </li>
@@ -144,15 +134,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    // Usar el nombre del usuario proporcionado por el backend
-    const userName = "<%= userName %>";  // Usamos EJS para inyectar el nombre
-    if (userName) {
-      document.getElementById('user-name').innerText = "Hola, " + userName;
-    }
-  </script>
-
-  <script>
-    // Esperamos que el DOM esté completamente cargado antes de ejecutar el código
     document.addEventListener('DOMContentLoaded', function () {
       // Obtener los elementos del DOM que vamos a manipular
       const loginLink = document.getElementById('loginLink');
