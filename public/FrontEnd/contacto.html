@@ -20,11 +20,10 @@
         <p class="pe">Soporte Técnico ET 36</p>
       </div>
     </h2>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+  
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
@@ -45,7 +44,7 @@
         <li class="nav-item">
           <a class="nav-link" href="index.html">Inicio</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" id="soporteMenu" style="display: none;">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Soporte Técnico <span class="caret"></span>
@@ -59,7 +58,7 @@
           <a class="nav-link" href="nosotros.html">Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link clicked" href="contacto.html">Contacto</a>
+          <a class="nav-link" href="contacto.html">Contacto</a>
         </li>
       </ul>
     </div>
@@ -119,40 +118,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $('.navbar-nav .nav-link').click(function () {
-        $('.navbar-nav .nav-link').removeClass('clicked');
-        $(this).addClass('clicked');
-      });
-    });
-  </script>
-  <script>
     // Comprobar si el usuario está logueado y mostrar/ocultar el enlace de Login y el menú de usuario
-    window.onload = function() {
-      const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
-      if (localStorage.getItem('loggedIn') === 'true') {
-        document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
-        document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
-        document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
-      } else {
-        document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
-        document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
-      }
+    window.onload = function () {
+        const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
+        if (localStorage.getItem('loggedIn') === 'true') {
+            document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
+            document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
+            document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
+        } else {
+            document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
+            document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
+        }
     }
 
     // Función para cerrar sesión
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
-      window.location.href = 'index.html'; // Redirigir al inicio
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
+        window.location.href = 'index.html'; // Redirigir al inicio
     });
 
     $(document).ready(function () {
-      $('.navbar-nav .nav-link').click(function () {
-        $('.navbar-nav .nav-link').removeClass('clicked');
-        $(this).addClass('clicked');
-      });
+        $('.navbar-nav .nav-link').click(function () {
+            $('.navbar-nav .nav-link').removeClass('clicked');
+            $(this).addClass('clicked');
+        });
     });
-  </script>
+</script>
 </body>
 
 </html>

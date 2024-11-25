@@ -43,7 +43,6 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <h6 class="dropdown-header" id="user-name">Usuario</h6>
-            
             <a class="dropdown-item" href="/FrontEnd/cargar_Lab.html">Cargar Lab</a>
             <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
           </div>
@@ -51,7 +50,7 @@
         <li class="nav-item">
           <a class="nav-link clicked" href="/FrontEnd/index.html">Inicio</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" id="soporteMenu" style="display: none;">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Soporte Técnico
@@ -76,8 +75,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="/FrontEnd/img/imgFondo.png" class="d-block w-100 img-fluid" alt="Nosotros">
-        <div class="carousel-caption d-none d-md-block">
-        </div>
+        <div class="carousel-caption d-none d-md-block"></div>
       </div>
       <div class="carousel-item">
         <img src="/FrontEnd/img/nosotros.jpg" class="d-block w-100 img-fluid" alt="Nosotros">
@@ -140,16 +138,18 @@
       const userMenu = document.getElementById('userMenu');
       const userNameElement = document.getElementById('user-name');
       const logoutBtn = document.getElementById('logoutBtn');  // Botón de cerrar sesión
+      const soporteMenu = document.getElementById('soporteMenu');
 
       // Obtener el estado de sesión y el nombre de usuario desde localStorage
       const loggedIn = localStorage.getItem('loggedIn') === 'true';
       const userName = localStorage.getItem('username');
 
-      // Si el usuario está logueado, mostramos el menú de usuario
+      // Si el usuario está logueado, mostramos el menú de usuario y soporte técnico
       if (loginLink && userMenu && userNameElement) {
         if (loggedIn) {
           loginLink.style.display = 'none'; // Ocultar el enlace de login
           userMenu.style.display = 'block'; // Mostrar el menú de usuario
+          soporteMenu.style.display = 'block'; // Mostrar Soporte Técnico
 
           // Verificar si el nombre de usuario está disponible y mostrarlo
           if (userName && userName.trim() !== '') {
@@ -160,6 +160,7 @@
         } else {
           loginLink.style.display = 'block'; // Mostrar el enlace de login si no está logueado
           userMenu.style.display = 'none'; // Ocultar el menú de usuario
+          soporteMenu.style.display = 'none'; // Ocultar Soporte Técnico
         }
       }
 

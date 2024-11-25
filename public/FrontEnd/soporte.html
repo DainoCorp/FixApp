@@ -12,58 +12,60 @@
 
 <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark">
             <h2 class="navbar-brand" href="#">
-                <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
-                <div class="textoPrinc">
-                    Ausbessern
-                    <br>
-                    <p class="pe">Soporte Técnico ET 36</p>
-                </div>
+              <img src="./img/llave.png" alt="Llave" style="height: 30px; margin-right: 10px; width: 30px;">
+              <div class="textoPrinc">
+                Ausbessern
+                <br>
+                <p class="pe">Soporte Técnico ET 36</p>
+              </div>
             </h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
+              <span class="navbar-toggler-icon"></span>
             </button>
-
+          
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-                    <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
-                    <li class="nav-item" id="loginLink">
-                        <a class="nav-link" href="login.html">Login(❁´◡`❁)</a>
-                    </li>
-                    <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
-                    <li class="nav-item dropdown" id="userMenu" style="display: none;">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mi Cuenta
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <h6 class="dropdown-header">Mi Cuenta</h6> <!-- Título dentro del menú desplegable -->
-                            <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Soporte Técnico <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu lilaClarito clicked" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="arreglo.html">Servicios</a>
-                            <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="nosotros.html">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.html">Contacto</a>
-                    </li>
-                </ul>
+              <ul class="navbar-nav ml-auto">
+                <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
+                <li class="nav-item" id="loginLink">
+                  <a class="nav-link" href="login.html">Login(❁´◡`❁)</a>
+                </li>
+                <!-- Menú de Usuario (desplegable) para cerrar sesión, solo visible cuando esté logueado -->
+                <li class="nav-item dropdown" id="userMenu" style="display: none;">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Mi Cuenta
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <h6 class="dropdown-header" id="user-name">Usuario</h6>
+                    <a class="dropdown-item" href="cargar_Lab.html">Cargar Lab</a>
+                    <a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link clicked" href="index.html">Inicio</a>
+                </li>
+                <!-- Menú de Soporte Técnico, solo visible si el usuario está logueado -->
+                <li class="nav-item dropdown" id="soporteMenu" style="display: none;">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Soporte Técnico
+                  </a>
+                  <div class="dropdown-menu lilaClarito" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="arreglo.html">Servicios</a>
+                    <a class="dropdown-item" href="asesoramiento.html">Asesoramiento</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="nosotros.html">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contacto.html">Contacto</a>
+                </li>
+              </ul>
             </div>
-        </nav>
+          </nav>
 
         <div class="row">
             <div class="col">
@@ -93,10 +95,12 @@
             if (localStorage.getItem('loggedIn') === 'true') {
                 document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
                 document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
-                document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
+                document.getElementById('soporteMenu').style.display = 'block'; // Mostrar el menú de Soporte Técnico si está logueado
+                document.getElementById('user-name').textContent = "Hola, " + userName; // Mostrar el nombre de usuario en el menú
             } else {
                 document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
                 document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
+                document.getElementById('soporteMenu').style.display = 'none'; // Ocultar el menú de Soporte Técnico si no está logueado
             }
         }
 
@@ -104,13 +108,6 @@
         document.getElementById('logoutBtn').addEventListener('click', function () {
             localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
             window.location.href = 'index.html'; // Redirigir al inicio
-        });
-
-        $(document).ready(function () {
-            $('.navbar-nav .nav-link').click(function () {
-                $('.navbar-nav .nav-link').removeClass('clicked');
-                $(this).addClass('clicked');
-            });
         });
     </script>
 </body>

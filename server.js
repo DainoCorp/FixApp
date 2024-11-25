@@ -212,8 +212,8 @@ app.get('/labs', ensureLoggedIn, async (req, res) => {
 
     res.status(200).json(results);
   } catch (err) {
-    console.error('Error al obtener los laboratorios:', err);
-    res.status(500).json({ error: 'Hubo un error al obtener los laboratorios' });
+    console.error('No se encontraron laboratorios asociados a este usuario:', err);
+    res.status(500).json({ error: 'No se encontraron laboratorios asociados a este usuario' });
   }
 });
 
