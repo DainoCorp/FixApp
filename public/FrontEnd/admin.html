@@ -165,20 +165,23 @@
 
     // Función para eliminar un ticket
     function deleteTicket(ticketId) {
-      if (confirm("¿Estás seguro de que deseas eliminar este ticket?")) {
-        $.ajax({
-          url: `/delete-ticket/${ticketId}`,  // URL de la solicitud DELETE
-          type: 'DELETE',
-          success: function (response) {
-            alert('Ticket eliminado correctamente');
-            location.reload();  // Recargar la página para reflejar los cambios
-          },
-          error: function (err) {
-            alert('Hubo un error al eliminar el ticket');
-            console.error('Error al eliminar ticket:', err); // Log de error
-          }
-        });
-      }
+      const url = `/tickets/${ticketId}`;
+
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function () {
+          // Eliminar la tarjeta del ticket del DOM usando el ticketId
+          $(`#ticket-${ticketId}`).remove(); // Eliminar el div del ticket
+          location.reload(); // Recargar la página
+
+          alert('Ticket y cod_equipo eliminados exitosamente');
+        },
+        error: function (err) {
+          alert('Hubo un error al eliminar el ticket');
+          console.error('Error:', err);
+        }
+      });
     }
 
     // Función para cerrar sesión

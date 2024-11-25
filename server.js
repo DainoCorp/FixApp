@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt'); // Reemplazamos crypto por bcrypt
+const { redirect } = require('express/lib/response');
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,9 @@ const connection = mysql.createPool({
   user: 'root',
   password: '',
   database: 'appfix',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 // Middlewares
@@ -248,6 +252,7 @@ app.post('/add-lab', async (req, res) => {
 
 app.get('/tickets', async (req, res) => {
   // Consulta para obtener todos los tickets
+  
   const query = `
     SELECT t.id, t.fecha_emision, t.descripcion_problema, ts.tipo_servicio, ce.descripcion_equipo, l.nombreLab
     FROM tickets t
@@ -266,32 +271,39 @@ app.get('/tickets', async (req, res) => {
   }
 });
 
-app.delete('/delete-ticket/:ticketId', async (req, res) => {
+app.delete('/tickets/:ticketId', async (req, res) => {
   const ticketId = req.params.ticketId;
-  console.log('Recibiendo solicitud para eliminar ticket con ID:', ticketId); // Verificar que recibimos el ticketId correctamente
 
   try {
-    const [ticketResults] = await connection.query('SELECT codigo_equipo FROM tickets WHERE id = ?', [ticketId]);
+    // Primero obtenemos el código del equipo (codigo_equipo) asociado al ticket
+    const [ticket] = await connection.query('SELECT codigo_equipo FROM tickets WHERE id = ?', [ticketId]);
 
-    if (ticketResults.length === 0) {
-      return res.status(404).send('Ticket no encontrado');
+    if (ticket.length === 0) {
+      return res.status(404).json({ error: 'Ticket no encontrado' });
     }
 
-    const codigoEquipoId = ticketResults[0].codigo_equipo;
+    const codigoEquipo = ticket[0].codigo_equipo;
 
-    await connection.beginTransaction();
-
+    // Eliminar el ticket
     await connection.query('DELETE FROM tickets WHERE id = ?', [ticketId]);
-    await connection.query('DELETE FROM cod_equipo WHERE id = ?', [codigoEquipoId]);
 
-    await connection.commit();
-    res.status(200).send('Ticket eliminado correctamente');
+    await connection.query('DELETE FROM cod_equipo WHERE id = ?', [codigoEquipo]);
+
+    res.status(200).json({ message: 'Ticket y cod_equipo eliminados exitosamente' });
+    
   } catch (err) {
-    await connection.rollback();
-    console.error('Error al eliminar ticket:', err);  // Ver error
-    res.status(500).send('Hubo un error al eliminar el ticket');
+    console.error('Error al eliminar el ticket o cod_equipo:', err);
+    res.status(500).json({ error: 'Error al eliminar el ticket o cod_equipo' });
   }
 });
+
+
+
+
+
+
+
+
 
 
 app.post('/logout', (req, res) => {
