@@ -121,6 +121,8 @@
         url: '/tickets',  // Ruta para obtener los tickets
         type: 'GET',
         success: function (data) {
+          console.log('Datos de tickets recibidos:', data);  // Verifica si los datos llegan correctamente
+
           if (Array.isArray(data) && data.length > 0) {
             $('#noTicketsMessage').addClass('d-none');  // Ocultar mensaje de no tickets
             $('#ticketCountMessage').removeClass('d-none');  // Mostrar el número de tickets
@@ -128,69 +130,44 @@
             // Mostrar el número de tickets
             $('#ticketCount').text(data.length);
 
+            // Mostrar los tickets
             data.forEach(function (ticket, index) {
               const ticketCard = `
-                <div class="col-md-4 mb-4">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <h5 class="card-title">Ticket #${index + 1}</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Laboratorio: ${ticket.nombreLab}</h6>
-                      <p class="card-text"><strong>Descripción del Problema:</strong> ${ticket.descripcion_problema}</p>
-                      <p class="card-text"><strong>Tipo de Servicio:</strong> ${ticket.tipo_servicio}</p>
-                      <p class="card-text"><strong>Equipo Afectado:</strong> ${ticket.descripcion_equipo}</p>
-                      <p class="card-text"><small class="text-muted">Fecha de emisión: ${new Date(ticket.fecha_emision).toLocaleString()}</small></p>
-                      <button class="btn btn-danger" onclick="deleteTicket(${ticket.id})">Eliminar</button>
-                    </div>
-                  </div>
+            <div class="col-md-4 mb-4">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title">Ticket #${index + 1}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Laboratorio: ${ticket.nombreLab}</h6>
+                  <p class="card-text"><strong>Descripción del Problema:</strong> ${ticket.descripcion_problema}</p>
+                  <p class="card-text"><strong>Tipo de Servicio:</strong> ${ticket.tipo_servicio}</p>
+                  <p class="card-text"><strong>Equipo Afectado:</strong> ${ticket.descripcion_equipo}</p>
+                  <p class="card-text"><small class="text-muted">Fecha de emisión: ${new Date(ticket.fecha_emision).toLocaleString()}</small></p>
+                  <button class="btn btn-danger" onclick="deleteTicket(${ticket.id})">Eliminar</button>
                 </div>
-              `;
+              </div>
+            </div>
+          `;
 
-              $('#ticketContainer').append(ticketCard);
+              $('#ticketContainer').append(ticketCard);  // Agregar la tarjeta del ticket al contenedor
             });
           } else {
-            $('#noTicketsMessage').removeClass('d-none');  // Mostrar mensaje de no tickets
+            $('#noTicketsMessage').removeClass('d-none');  // Mostrar mensaje de no tickets si no hay registros
             $('#ticketCountMessage').addClass('d-none');  // Ocultar el número de tickets
           }
         },
         error: function (err) {
+          console.error('Error al obtener los tickets:', err);  // Log de error de la solicitud
           alert('Hubo un error al obtener los tickets');
-          console.error(err);
         }
-      });
-
-      // Manejar la solicitud de agregar un nuevo laboratorio
-      $('#addLabForm').submit(function (e) {
-        e.preventDefault();
-
-        var labName = $('#labName').val();
-        if (!labName) {
-          alert('Por favor ingrese un nombre de laboratorio');
-          return;
-        }
-
-        // Enviar la solicitud para agregar el nuevo laboratorio
-        $.ajax({
-          url: '/add-lab',
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({ nombreLab: labName }),  // Enviar el nombre del laboratorio
-          success: function (response) {
-            alert('Laboratorio agregado correctamente');
-            $('#labName').val('');  // Limpiar el campo de entrada
-          },
-          error: function (err) {
-            alert('Hubo un error al agregar el laboratorio');
-            console.error(err);
-          }
-        });
       });
     });
+
 
     // Función para eliminar un ticket
     function deleteTicket(ticketId) {
       if (confirm("¿Estás seguro de que deseas eliminar este ticket?")) {
         $.ajax({
-          url: `/delete-ticket/${ticketId}`,  // Ruta para eliminar el ticket
+          url: `/delete-ticket/${ticketId}`,  // URL de la solicitud DELETE
           type: 'DELETE',
           success: function (response) {
             alert('Ticket eliminado correctamente');
@@ -198,7 +175,7 @@
           },
           error: function (err) {
             alert('Hubo un error al eliminar el ticket');
-            console.error(err);
+            console.error('Error al eliminar ticket:', err); // Log de error
           }
         });
       }

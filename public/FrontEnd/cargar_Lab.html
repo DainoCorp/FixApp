@@ -14,57 +14,47 @@
         /* Colores pastel personalizados */
         body {
             background-color: #a0abd8;
-            /* Color de fondo suave */
             font-family: cursive;
             justify-content: center;
             align-items: center;
             display: flex;
             flex-direction: column;
-            /* Asegura que los elementos se apilen verticalmente */
         }
 
         .container {
             background-color: #ffffff;
-            /* Fondo blanco para el contenedor */
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 80%;
-            /* Ajusta el ancho del contenedor */
         }
 
         h2,
         h3 {
             color: #5b5e7b;
-            /* Color pastel suave para los encabezados */
         }
 
         .btn-primary {
             background-color: #a8b0f9;
-            /* Botón con color pastel */
             border-color: #a8cbf9;
         }
 
         .btn-primary:hover {
             background-color: #b7bbf8;
-            /* Color del botón al pasar el mouse */
             border-color: #b8b7f8;
         }
 
         .card {
             border: none;
             background-color: #e0e2f1;
-            /* Fondo de tarjetas en color pastel */
         }
 
         .card-body {
             background-color: #d7d8f8;
-            /* Fondo suave para el contenido de la tarjeta */
         }
 
         .alert-info {
             background-color: #c2c2c2;
-            /* Fondo pastel verde suave para los mensajes */
         }
 
         .btn-danger {
@@ -79,7 +69,6 @@
 
         .btn-logout {
             background-color: #f33f3f;
-            /* Color de fondo rojo para el botón de logout */
             border-color: #f0a0a0;
         }
 
@@ -103,12 +92,10 @@
             </div>
         </h2>
 
-        <!-- Botón de colapsar para dispositivos pequeños -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Menú de navegación -->
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -131,39 +118,32 @@
                 <form id="addLabForm">
                     <div class="form-group">
                         <label for="labName">Nombre del Laboratorio</label>
-                        <input type="text" class="form-control custom-input" id="labName" placeholder="Ejemplo: LAB1"
-                            required>
+                        <input type="text" class="form-control custom-input" id="labName" placeholder="Ejemplo: LAB1" required>
                     </div>
                     <button type="submit" class="btn custom-btn">Agregar Laboratorio</button>
                 </form>
             </div>
         </div>
 
-        <!-- Estilos personalizados para el formulario -->
         <style>
-            /* Fondo del formulario */
+            /* Estilos para el formulario */
             #addLabForm {
                 background-color: #f7f9fc;
-                /* Fondo suave para el formulario */
                 border-radius: 10px;
                 padding: 20px;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
 
-            /* Cambiar color del botón */
             .custom-btn {
                 background-color: #6c7ae0;
-                /* Un color suave y diferente */
                 border-color: #5a66d1;
             }
 
             .custom-btn:hover {
                 background-color: #5a66d1;
-                /* Colore del botón al pasar el ratón */
                 border-color: #4a57b0;
             }
 
-            /* Estilo para los campos del formulario */
             .custom-input {
                 border: 1px solid #ddd;
                 border-radius: 5px;
@@ -173,18 +153,15 @@
 
             .custom-input:focus {
                 border-color: #6c7ae0;
-                /* Color de borde al enfocarse en el campo */
                 box-shadow: 0 0 5px rgba(108, 122, 224, 0.5);
             }
 
-            /* Estilos para los encabezados */
             h3 {
                 color: #333;
                 font-weight: 600;
                 font-size: 24px;
             }
 
-            /* Espaciado entre el formulario y otros elementos */
             .row {
                 margin-top: 20px;
             }
@@ -194,6 +171,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
+                // Obtener el userId desde el localStorage si el usuario está logueado
                 // Manejar la solicitud de agregar un nuevo laboratorio
                 $('#addLabForm').submit(function (e) {
                     e.preventDefault();
@@ -209,7 +187,9 @@
                         url: '/add-lab',
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify({ nombreLab: labName }),  // Enviar el nombre del laboratorio
+                        data: JSON.stringify({
+                            nombreLab: labName,
+                        }),
                         success: function (response) {
                             alert('Laboratorio agregado correctamente');
                             $('#labName').val('');  // Limpiar el campo de entrada
@@ -222,50 +202,43 @@
                 });
             });
         </script>
+        
         <script>
             // Esperamos que el DOM esté completamente cargado antes de ejecutar el código
             document.addEventListener('DOMContentLoaded', function () {
-                // Obtener los elementos del DOM que vamos a manipular
                 const loginLink = document.getElementById('loginLink');
                 const userMenu = document.getElementById('userMenu');
                 const userNameElement = document.getElementById('user-name');
                 const logoutBtn = document.getElementById('logoutBtn');
 
-                // Obtener el estado de sesión y el nombre de usuario desde localStorage
                 const loggedIn = localStorage.getItem('loggedIn') === 'true';
                 const userName = localStorage.getItem('username');
 
-                // Si el usuario está logueado, mostramos el menú de usuario
                 if (loginLink && userMenu && userNameElement) {
                     if (loggedIn) {
-                        loginLink.style.display = 'none'; // Ocultar el enlace de login
-                        userMenu.style.display = 'block'; // Mostrar el menú de usuario
+                        loginLink.style.display = 'none';
+                        userMenu.style.display = 'block';
 
-                        // Verificar si el nombre de usuario está disponible y mostrarlo
                         if (userName && userName.trim() !== '') {
                             userNameElement.textContent = "Hola, " + userName;
                         } else {
-                            userNameElement.textContent = "Hola, Usuario"; // Valor predeterminado si no hay nombre
+                            userNameElement.textContent = "Hola, Usuario";
                         }
                     } else {
-                        loginLink.style.display = 'block'; // Mostrar el enlace de login si no está logueado
-                        userMenu.style.display = 'none'; // Ocultar el menú de usuario
+                        loginLink.style.display = 'block';
+                        userMenu.style.display = 'none';
                     }
                 }
 
-                // Función para cerrar sesión
                 if (logoutBtn) {
                     logoutBtn.addEventListener('click', function () {
-                        // Marcar como no logueado y redirigir al login
                         localStorage.setItem('loggedIn', 'false');
-                        window.location.href = '/FrontEnd/login.html';  // Redirigir a login.html
+                        window.location.href = '/FrontEnd/login.html';
                     });
                 }
 
-                // Usar jQuery para manejar la clase 'clicked' en la barra de navegación
                 $(document).ready(function () {
                     $('.navbar-nav .nav-link').click(function () {
-                        // Remover la clase 'clicked' de todos los enlaces y agregarla al clickeado
                         $('.navbar-nav .nav-link').removeClass('clicked');
                         $(this).addClass('clicked');
                     });

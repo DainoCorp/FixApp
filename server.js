@@ -53,11 +53,12 @@ app.get('/', ensureLoggedIn, (req, res) => {
 
 // Verificar que el usuario esté logueado
 function ensureLoggedIn(req, res, next) {
-  if (!req.session.loggedIn) {
-    return res.redirect('/FrontEnd/login.html'); // Si no está logueado, redirige al login
+  if (!req.session.loggedIn || !req.session.userId) {
+    return res.redirect('/FrontEnd/login.html'); // Si no está logueado o no tiene userId, redirige al login
   }
   next();
 }
+
 
 // Ruta para registrar un nuevo usuario
 app.post('/register', async (req, res) => {
@@ -114,11 +115,11 @@ app.post('/login', async (req, res) => {
     if (!match) {
       return res.status(400).send('Contraseña incorrecta');
     }
-
     // Guardamos al usuario en la sesión
     req.session.loggedIn = true;
     req.session.user = user;  // Guardar el objeto completo del usuario
     req.session.userName = user.nombre;
+    req.session.userId = user.idusers;  // Aquí guardamos el idusuario en la sesión
 
     // Depurar para verificar los datos de sesión
     console.log("Datos de sesión después de login:", req.session);
@@ -137,9 +138,9 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Ruta para procesar el formulario de arreglo
 app.post("/arreglo", ensureLoggedIn, async (req, res) => {
   const { tipoServicio, laboratorio, tipoEquipo, descripcionProblema } = req.body;
+  const userId = req.session.userId;  // Obtener el idusuario desde la sesión
 
   if (!tipoServicio || !laboratorio || !tipoEquipo || !descripcionProblema) {
     return res.status(400).send('Faltan datos requeridos');
@@ -147,10 +148,10 @@ app.post("/arreglo", ensureLoggedIn, async (req, res) => {
 
   try {
     // Verificar y obtener el ID del laboratorio
-    const [laboratorioResults] = await connection.query('SELECT * FROM laboratorio WHERE nombreLab = ?', [laboratorio]);
+    const [laboratorioResults] = await connection.query('SELECT * FROM laboratorio WHERE nombreLab = ? AND idusuario = ?', [laboratorio, userId]);
 
     if (laboratorioResults.length === 0) {
-      return res.status(400).send('Laboratorio no encontrado');
+      return res.status(400).send('Laboratorio no encontrado o no autorizado');
     }
 
     const laboratorioId = laboratorioResults[0].idlaboratorio;
@@ -192,13 +193,12 @@ async function insertTicket(res, laboratorioId, tipoEquipo, tipoServicioId, desc
 
 app.get('/labs', ensureLoggedIn, async (req, res) => {
   try {
-    const userId = req.session.user.idusuario;  // Obtener el idusuario de la sesión
+    const userId = req.session.userId;  // Obtener el idusuario desde la sesión
 
     if (!userId) {
       return res.status(400).json({ error: 'No se encontró el ID del usuario logueado' });
     }
 
-    // Consulta para obtener los laboratorios asociados al usuario logueado
     const query = 'SELECT * FROM laboratorio WHERE idusuario = ?';
     const [results] = await connection.query(query, [userId]);
 
@@ -214,6 +214,7 @@ app.get('/labs', ensureLoggedIn, async (req, res) => {
 });
 
 
+
 // Ruta para obtener los tipos de servicio
 app.get('/tipos-servicio', async (req, res) => {
   try {
@@ -224,35 +225,29 @@ app.get('/tipos-servicio', async (req, res) => {
   }
 });
 
-// Ruta para agregar un nuevo laboratorio
-app.post('/add-lab', (req, res) => {
+app.post('/add-lab', async (req, res) => {
   const { nombreLab } = req.body;
-  const idusuario = req.session.user.idusuario;  // Obtener el ID del usuario logueado
 
-  // Verificar que el nombre del laboratorio y el ID del usuario sean válidos
-  if (!nombreLab || !idusuario) {
-    return res.status(400).json({ message: 'Faltan datos para crear el laboratorio' });
+  // Obtener el ID del usuario logueado desde la sesión
+  const userId = req.session.userId;
+
+  if (!nombreLab || !userId) {
+    return res.status(400).json({ error: 'Faltan datos o no estás logueado' });
   }
 
-  // Insertar el laboratorio en la base de datos asociado al usuario
-  const query = 'INSERT INTO laboratorio (nombreLab, idusuario) VALUES (?, ?)';
-  connection.query(query, [nombreLab, idusuario], (err, results) => {
-    if (err) {
-      console.error('Error al agregar el laboratorio:', err);
-      return res.status(500).json({ message: 'Hubo un error al agregar el laboratorio' });
-    }
+  try {
+    const query = `INSERT INTO laboratorio (nombreLab, idusuario) VALUES (?, ?)`;
+    const [result] = await connection.query(query, [nombreLab, userId]);
 
-    // Responder con éxito
-    res.status(200).json({
-      message: 'Laboratorio agregado correctamente',
-      idLaboratorio: results.insertId,
-      nombreLab: nombreLab
-    });
-  });
+    res.status(200).json({ message: 'Laboratorio agregado correctamente', labId: result.insertId });
+  } catch (err) {
+    console.error('Error al agregar el laboratorio:', err);
+    return res.status(500).json({ error: 'Hubo un error al agregar el laboratorio' });
+  }
 });
 
-// Ruta para obtener los tickets
 app.get('/tickets', async (req, res) => {
+  // Consulta para obtener todos los tickets
   const query = `
     SELECT t.id, t.fecha_emision, t.descripcion_problema, ts.tipo_servicio, ce.descripcion_equipo, l.nombreLab
     FROM tickets t
@@ -261,18 +256,19 @@ app.get('/tickets', async (req, res) => {
     JOIN laboratorio l ON ce.id_lab = l.idlaboratorio
     ORDER BY t.fecha_emision DESC;
   `;
-
+  
   try {
-    const [results] = await connection.query(query);
-    res.status(200).json(results);
+    const [results] = await connection.query(query);  // Ejecutar la consulta para obtener los tickets
+    res.status(200).json(results);  // Devolver los resultados como JSON
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Hubo un error al obtener los tickets' });
   }
 });
 
-// Ruta para eliminar un ticket
 app.delete('/delete-ticket/:ticketId', async (req, res) => {
   const ticketId = req.params.ticketId;
+  console.log('Recibiendo solicitud para eliminar ticket con ID:', ticketId); // Verificar que recibimos el ticketId correctamente
 
   try {
     const [ticketResults] = await connection.query('SELECT codigo_equipo FROM tickets WHERE id = ?', [ticketId]);
@@ -289,13 +285,14 @@ app.delete('/delete-ticket/:ticketId', async (req, res) => {
     await connection.query('DELETE FROM cod_equipo WHERE id = ?', [codigoEquipoId]);
 
     await connection.commit();
-
     res.status(200).send('Ticket eliminado correctamente');
   } catch (err) {
     await connection.rollback();
+    console.error('Error al eliminar ticket:', err);  // Ver error
     res.status(500).send('Hubo un error al eliminar el ticket');
   }
 });
+
 
 app.post('/logout', (req, res) => {
   req.session.destroy(function (err) {
