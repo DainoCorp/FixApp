@@ -23,7 +23,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <!-- Enlace de Login que se mostrará o no según el estado de sesión -->
@@ -127,8 +127,18 @@
           }
         },
         error: function (err) {
-          alert('No se encontraron laboratorios asociados a este usuario');
-          console.error(err);
+          // Mostrar un mensaje al usuario con la opción de aceptar o cancelar
+          const userChoice = confirm('No se encontraron laboratorios asociados a este usuario. ¿Queres cargar un laboratorio?');
+
+          if (userChoice) {
+            // Si el usuario elige "Aceptar", redirigir a cargar_Lab
+            window.location.href = 'http://localhost:3000/FrontEnd/cargar_Lab.html';  // Puedes poner la URL completa si es necesario
+          } else {
+            // Si el usuario elige "Cancelar", no hacer nada (quedarse en la página actual)
+            console.log('El usuario decidió quedarse en la página.');
+          }
+
+          console.error(err);  // Loguea el error en la consola
         }
       });
 
@@ -243,30 +253,30 @@
   <script>
     // Comprobar si el usuario está logueado y mostrar/ocultar el enlace de Login y el menú de usuario
     window.onload = function () {
-        const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
-        if (localStorage.getItem('loggedIn') === 'true') {
-            document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
-            document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
-            document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
-        } else {
-            document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
-            document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
-        }
+      const userName = localStorage.getItem('username'); // Obtener el nombre de usuario
+      if (localStorage.getItem('loggedIn') === 'true') {
+        document.getElementById('loginLink').style.display = 'none'; // Ocultar el enlace de login si está logueado
+        document.getElementById('userMenu').style.display = 'block'; // Mostrar el menú de usuario si está logueado
+        document.getElementById('userName').textContent = userName; // Mostrar el nombre de usuario en el menú
+      } else {
+        document.getElementById('loginLink').style.display = 'block'; // Mostrar el enlace de login si no está logueado
+        document.getElementById('userMenu').style.display = 'none'; // Ocultar el menú de usuario si no está logueado
+      }
     }
 
     // Función para cerrar sesión
     document.getElementById('logoutBtn').addEventListener('click', function () {
-        localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
-        window.location.href = 'index.html'; // Redirigir al inicio
+      localStorage.setItem('loggedIn', 'false'); // Marcar como no logueado
+      window.location.href = 'index.html'; // Redirigir al inicio
     });
 
     $(document).ready(function () {
-        $('.navbar-nav .nav-link').click(function () {
-            $('.navbar-nav .nav-link').removeClass('clicked');
-            $(this).addClass('clicked');
-        });
+      $('.navbar-nav .nav-link').click(function () {
+        $('.navbar-nav .nav-link').removeClass('clicked');
+        $(this).addClass('clicked');
+      });
     });
-</script>
+  </script>
 </body>
 
 </html>
