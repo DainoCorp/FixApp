@@ -69,14 +69,14 @@ app.post('/register', async (req, res) => {
   const { nombre, email, password } = req.body;
 
   if (!nombre || !email || !password) {
-    return res.status(400).send('Todos los campos son obligatorios.');
+    return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
   }
 
   try {
     // Verificar si el correo ya está registrado
     const [existingUser] = await connection.query('SELECT * FROM usuario WHERE mail = ?', [email]);
     if (existingUser.length > 0) {
-      return res.status(400).send('Este correo ya está registrado.');
+      return res.status(400).json({ message: 'El correo ya está registrado.' });
     }
 
     // Hashear la contraseña con bcrypt
@@ -86,13 +86,14 @@ app.post('/register', async (req, res) => {
     const query = 'INSERT INTO usuario (nombre, mail, contraseña) VALUES (?, ?, ?)';
     await connection.query(query, [nombre, email, hashedPassword]);
 
-    // Redirigir a la página principal después de registro
-    res.redirect('/FrontEnd/login.html');
+    // Responder con un mensaje de éxito
+    res.status(200).json({ message: 'Registro exitoso. Puedes iniciar sesión ahora.' });
   } catch (err) {
     console.error('Error al registrar usuario:', err);
-    res.status(500).send('Hubo un error al registrar al usuario');
+    res.status(500).json({ message: 'Hubo un error al registrar al usuario.' });
   }
 });
+
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
