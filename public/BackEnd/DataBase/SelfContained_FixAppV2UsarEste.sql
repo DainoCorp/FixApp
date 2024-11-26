@@ -29,7 +29,7 @@ CREATE TABLE `cod_equipo` (
   PRIMARY KEY (`id`),
   KEY `cod_equipo-laboratorio_idx` (`id_lab`),
   CONSTRAINT `cod_equipo-laboratorio` FOREIGN KEY (`id_lab`) REFERENCES `laboratorio` (`idlaboratorio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `laboratorio` (
   `idusuario` int(11) NOT NULL,
   PRIMARY KEY (`idlaboratorio`),
   KEY `laboratorio_userId_idx` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,6 +145,7 @@ CREATE TABLE `laboratorio` (
 
 LOCK TABLES `laboratorio` WRITE;
 /*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
+INSERT INTO `laboratorio` VALUES (1,'LAB1',2),(2,'LAB3',2);
 /*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +167,7 @@ CREATE TABLE `tickets` (
   KEY `fk_tickets_tipo_servicio_idx` (`id_tipo_servicio`),
   CONSTRAINT `fk_tickets_cod_equipo` FOREIGN KEY (`codigo_equipo`) REFERENCES `cod_equipo` (`id`),
   CONSTRAINT `fk_tickets_tipo_servicio` FOREIGN KEY (`id_tipo_servicio`) REFERENCES `tipo_servicio` (`idtipo_servicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +177,65 @@ CREATE TABLE `tickets` (
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_delete_tickets
+BEFORE DELETE
+ON tickets
+FOR EACH ROW
+BEGIN
+    DECLARE descripcion_equipos VARCHAR(20);
+    
+    -- Get the descripcion_equipo from the cod_equipo table
+    SELECT descripcion_equipo
+    INTO descripcion_equipos
+    FROM cod_equipo
+    WHERE id = OLD.codigo_equipo;
+
+    -- Insert the record into tickets_eliminados
+    INSERT INTO tickets_eliminados (fecha_emision, descripcion_equipo, id_tipo_servicio)
+    VALUES (OLD.fecha_emision, descripcion_equipos, OLD.id_tipo_servicio);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `tickets_eliminados`
+--
+
+DROP TABLE IF EXISTS `tickets_eliminados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tickets_eliminados` (
+  `idtickets_eliminados` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_emision` datetime NOT NULL,
+  `descripcion_equipo` varchar(100) NOT NULL,
+  `id_tipo_servicio` int(11) NOT NULL,
+  PRIMARY KEY (`idtickets_eliminados`),
+  KEY `fk_tipo_serv_idx` (`id_tipo_servicio`),
+  CONSTRAINT `fk_tipo_serv` FOREIGN KEY (`id_tipo_servicio`) REFERENCES `tipo_servicio` (`idtipo_servicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tickets_eliminados`
+--
+
+LOCK TABLES `tickets_eliminados` WRITE;
+/*!40000 ALTER TABLE `tickets_eliminados` DISABLE KEYS */;
+INSERT INTO `tickets_eliminados` VALUES (2,'2024-11-26 10:39:30','PA66',4),(3,'2024-11-26 10:41:26','PA66',4);
+/*!40000 ALTER TABLE `tickets_eliminados` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -189,7 +249,7 @@ CREATE TABLE `tipo_servicio` (
   `idtipo_servicio` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_servicio` varchar(45) NOT NULL,
   PRIMARY KEY (`idtipo_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +258,7 @@ CREATE TABLE `tipo_servicio` (
 
 LOCK TABLES `tipo_servicio` WRITE;
 /*!40000 ALTER TABLE `tipo_servicio` DISABLE KEYS */;
-INSERT INTO `tipo_servicio` VALUES (1,'limpieza'),(2,'arreglo');
+INSERT INTO `tipo_servicio` VALUES (1,'limpieza'),(2,'arreglo'),(4,'Arreglos');
 /*!40000 ALTER TABLE `tipo_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +275,7 @@ CREATE TABLE `usuario` (
   `mail` varchar(45) NOT NULL,
   `contraseña` varchar(300) NOT NULL,
   PRIMARY KEY (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,9 +284,13 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'lolo','lolo@gmail.com','$2b$10$ceCTyTlDFIi6oIMDD4ObtOIyYQ5GDuxqqqvgLw');
+INSERT INTO `usuario` VALUES (1,'lolo','lolo@gmail.com','$2b$10$ceCTyTlDFIi6oIMDD4ObtOIyYQ5GDuxqqqvgLw'),(2,'nacho','nacho@gmail.com','$2b$10$x9McQqNvyyDPe0FJe9jVseV7P3bHffCr1Rc4I3X6ij3ADuWwvQjyC'),(3,'admin','admin@gmail.com','$2b$10$ERpVItbOXJCvglftxWZEgeRA9fzqdQ6/M2MQCxacMi6eBlAS5SkFq');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'appfix'
+--
 
 --
 -- Dumping routines for database 'appfix'
@@ -241,4 +305,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-19  8:21:00
+-- Dump completed on 2024-11-26 10:43:20
